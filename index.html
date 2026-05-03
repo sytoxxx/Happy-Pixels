@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Pixels</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(255, 45, 85, 0.22), transparent 34%),
+        radial-gradient(circle at top right, rgba(0, 122, 255, 0.18), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(255, 149, 0, 0.14), transparent 32%),
+        linear-gradient(180deg, #fbfafd 0%, #f4f3f9 100%);
+      color: #11111a;
+      overflow-x: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 28px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 5px;
+      color: #ff2d55;
+    }
+
+    .nav-pill {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      font-size: 13px;
+      font-weight: 800;
+      color: #8e8e99;
+      backdrop-filter: blur(18px);
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 1050px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #ff2d55;
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 22px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.07);
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.92;
+      letter-spacing: -4px;
+      font-weight: 950;
+      margin-bottom: 24px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ff2d55, #ff9500, #007aff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: clamp(19px, 2.2vw, 27px);
+      line-height: 1.35;
+      color: #6f6f7a;
+      font-weight: 700;
+      max-width: 620px;
+      margin-bottom: 34px;
+    }
+
+    .coming-card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 34px;
+      padding: 24px;
+      max-width: 520px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.09);
+      backdrop-filter: blur(18px);
+    }
+
+    .coming-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #11111a;
+      margin-bottom: 16px;
+    }
+
+    .store-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .store-pill {
+      flex: 1;
+      min-width: 150px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: #11111a;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .store-pill.light {
+      background: #ffffff;
+      color: #11111a;
+      border: 1px solid #ececf2;
+    }
+
+    .store-icon {
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone {
+      width: min(335px, 82vw);
+      height: 680px;
+      border-radius: 58px;
+      background: #111116;
+      padding: 14px;
+      box-shadow: 0 35px 90px rgba(0,0,0,0.24);
+      transform: rotate(3deg);
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 46px;
+      background: linear-gradient(180deg, #fbfafd, #f2f1f8);
+      padding: 23px 18px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .app-logo {
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 3.5px;
+      color: #ff2d55;
+      margin-bottom: 8px;
+    }
+
+    .app-title {
+      font-size: 31px;
+      font-weight: 950;
+      letter-spacing: -1.4px;
+      color: #ff2d55;
+      margin-bottom: 4px;
+    }
+
+    .app-date {
+      color: #8e8e99;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .app-icons {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      padding-top: 3px;
+    }
+
+    .app-icon-pill {
+      width: 38px;
+      height: 38px;
+      border-radius: 19px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+      font-weight: 900;
+    }
+
+    .streak-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.07);
+      font-weight: 950;
+      color: #ff5a00;
+    }
+
+    .calendar-wrap {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .mood-side {
+      width: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+      padding-top: 3px;
+    }
+
+    .add-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+      background: #ff2d55;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 25px;
+      font-weight: 300;
+      box-shadow: 0 12px 25px rgba(255,45,85,0.25);
+    }
+
+    .mood-dot {
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      box-shadow: 0 7px 14px rgba(0,0,0,0.08);
+    }
+
+    .mood-label {
+      font-size: 8px;
+      font-weight: 900;
+      color: #11111a;
+      text-align: center;
+      margin-top: -8px;
+      max-width: 46px;
+    }
+
+    .calendar {
+      flex: 1;
+    }
+
+    .month-row {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 4px;
+      margin-bottom: 7px;
+    }
+
+    .month-row span {
+      font-size: 9px;
+      font-weight: 900;
+      color: #9b9ba5;
+      text-align: center;
+    }
+
+    .pixel-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 4px;
+    }
+
+    .pixel {
+      aspect-ratio: 1;
+      border-radius: 5px;
+      background: #eeeef5;
+    }
+
+    .p1 { background: #ff2d55; }
+    .p2 { background: #ffd600; }
+    .p3 { background: #69f0ae; }
+    .p4 { background: #2979ff; }
+    .p5 { background: #ff9500; }
+    .p6 { background: #af52de; }
+    .p7 { background: #00c853; }
+    .p8 { background: #ff3b30; }
+
+    .mini-tabbar {
+      position: absolute;
+      left: 17px;
+      right: 17px;
+      bottom: 18px;
+      height: 76px;
+      border-radius: 28px;
+      background: #ffffff;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.11);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 12px;
+    }
+
+    .tab-item {
+      text-align: center;
+      min-width: 62px;
+    }
+
+    .tab-emoji {
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+
+    .tab-text {
+      font-size: 9px;
+      font-weight: 900;
+      color: #8e8e99;
+    }
+
+    .tab-item.active .tab-text {
+      color: #ff2d55;
+    }
+
+    .stats-card {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 105px;
+      background: #ffffff;
+      border-radius: 26px;
+      padding: 17px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.11);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stats-number {
+      font-size: 39px;
+      font-weight: 950;
+      color: #ff5a00;
+      letter-spacing: -1px;
+    }
+
+    .stats-label {
+      color: #8e8e99;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .stats-mini {
+      width: 44px;
+      height: 44px;
+      border-radius: 17px;
+      background: #f4f3f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .updates {
+      width: 100%;
+      max-width: 1050px;
+      margin-top: 90px;
+    }
+
+    .section-heading {
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 950;
+      letter-spacing: -2px;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      color: #74747f;
+      font-size: 20px;
+      font-weight: 750;
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .update-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .update-card {
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 30px;
+      padding: 24px;
+      box-shadow: 0 18px 55px rgba(0,0,0,0.06);
+      min-height: 165px;
+    }
+
+    .update-card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .update-card p {
+      color: #73737e;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .wide-section {
+      width: 100%;
+      max-width: 1050px;
+      margin-top: 34px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 36px;
+      padding: 34px;
+      box-shadow: 0 22px 70px rgba(0,0,0,0.07);
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .feature-row {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 18px;
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      background: #f4f3f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .feature-row strong {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .feature-row span {
+      color: #777782;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    footer {
+      margin-top: 70px;
+      color: #9b9ba5;
+      font-weight: 800;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      header {
+        margin-bottom: 48px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .phone {
+        height: 630px;
+      }
+
+      .update-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+
+      .updates {
+        margin-top: 60px;
+      }
+
+      h1 {
+        letter-spacing: -2.5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header>
+      <div class="logo">HAPPY PIXELS</div>
+      <div class="nav-pill">Coming Soon</div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="tag">🔥 Streak Challenges and more</div>
+
+        <h1>
+          Your Year.<br />
+          Your Mood.<br />
+          <span class="gradient-text">Your Pixels.</span>
+        </h1>
+
+        <p class="subtitle">
+          Track your days, build your streak and turn your whole year into a colorful pixel story.
+        </p>
+
+        <div class="coming-card">
+          <div class="coming-title">Soon available on</div>
+
+          <div class="store-row">
+            <div class="store-pill">
+              <span class="store-icon">🍎</span>
+              <span>iOS</span>
+            </div>
+
+            <div class="store-pill light">
+              <span class="store-icon">🤖</span>
+              <span>Android</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-top">
+              <div>
+                <div class="app-logo">HAPPY PIXELS</div>
+                <div class="app-title">Mood Tracker</div>
+                <div class="app-date">Today, one pixel at a time</div>
+              </div>
+
+              <div class="app-icons">
+                <div class="app-icon-pill">📊</div>
+                <div class="app-icon-pill">⚙️</div>
+              </div>
+            </div>
+
+            <div class="streak-pill">
+              <span>🔥</span>
+              <span>12</span>
+            </div>
+
+            <div class="calendar-wrap">
+              <div class="mood-side">
+                <div class="add-dot">+</div>
+
+                <div class="mood-dot p3"></div>
+                <div class="mood-label">Gut</div>
+
+                <div class="mood-dot p8"></div>
+                <div class="mood-label">Schlecht</div>
+
+                <div class="mood-dot p1"></div>
+                <div class="mood-label">Best</div>
+
+                <div class="mood-dot p2"></div>
+                <div class="mood-label">Ok</div>
+
+                <div class="mood-dot p4"></div>
+                <div class="mood-label">Cool</div>
+              </div>
+
+              <div class="calendar">
+                <div class="month-row">
+                  <span>J</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span>
+                  <span>J</span><span>A</span><span>S</span><span>O</span><span>N</span><span>D</span>
+                </div>
+
+                <div class="pixel-grid">
+                  <div class="pixel p1"></div><div class="pixel"></div><div class="pixel p2"></div><div class="pixel p3"></div><div class="pixel"></div><div class="pixel p4"></div><div class="pixel p6"></div><div class="pixel p1"></div><div class="pixel p5"></div><div class="pixel"></div><div class="pixel p3"></div><div class="pixel p7"></div>
+                  <div class="pixel"></div><div class="pixel p4"></div><div class="pixel p2"></div><div class="pixel p8"></div><div class="pixel p1"></div><div class="pixel"></div><div class="pixel p3"></div><div class="pixel p5"></div><div class="pixel"></div><div class="pixel p4"></div><div class="pixel p6"></div><div class="pixel p2"></div>
+                  <div class="pixel p3"></div><div class="pixel p7"></div><div class="pixel"></div><div class="pixel p1"></div><div class="pixel p5"></div><div class="pixel p2"></div><div class="pixel"></div><div class="pixel p8"></div><div class="pixel p4"></div><div class="pixel p3"></div><div class="pixel"></div><div class="pixel p1"></div>
+                  <div class="pixel"></div><div class="pixel p5"></div><div class="pixel p4"></div><div class="pixel"></div><div class="pixel p3"></div><div class="pixel p6"></div><div class="pixel p2"></div><div class="pixel p1"></div><div class="pixel"></div><div class="pixel"></div><div class="pixel p5"></div><div class="pixel p4"></div>
+                  <div class="pixel p1"></div><div class="pixel p2"></div><div class="pixel p7"></div><div class="pixel p3"></div><div class="pixel"></div><div class="pixel p4"></div><div class="pixel p5"></div><div class="pixel p6"></div><div class="pixel p1"></div><div class="pixel p2"></div><div class="pixel"></div><div class="pixel p3"></div>
+                  <div class="pixel p4"></div><div class="pixel"></div><div class="pixel p8"></div><div class="pixel p7"></div><div class="pixel p2"></div><div class="pixel"></div><div class="pixel p1"></div><div class="pixel p5"></div><div class="pixel p3"></div><div class="pixel"></div><div class="pixel p4"></div><div class="pixel p6"></div>
+                  <div class="pixel"></div><div class="pixel p1"></div><div class="pixel p2"></div><div class="pixel"></div><div class="pixel p7"></div><div class="pixel p3"></div><div class="pixel p8"></div><div class="pixel"></div><div class="pixel p5"></div><div class="pixel p4"></div><div class="pixel p1"></div><div class="pixel"></div>
+                  <div class="pixel p6"></div><div class="pixel p4"></div><div class="pixel"></div><div class="pixel p1"></div><div class="pixel p2"></div><div class="pixel p3"></div><div class="pixel"></div><div class="pixel p7"></div><div class="pixel p8"></div><div class="pixel"></div><div class="pixel p5"></div><div class="pixel p4"></div>
+                  <div class="pixel p3"></div><div class="pixel"></div><div class="pixel p1"></div><div class="pixel p5"></div><div class="pixel"></div><div class="pixel p4"></div><div class="pixel p2"></div><div class="pixel p6"></div><div class="pixel"></div><div class="pixel p7"></div><div class="pixel p1"></div><div class="pixel p8"></div>
+                  <div class="pixel"></div><div class="pixel p7"></div><div class="pixel p5"></div><div class="pixel"></div><div class="pixel p4"></div><div class="pixel p2"></div><div class="pixel p1"></div><div class="pixel"></div><div class="pixel p3"></div><div class="pixel p6"></div><div class="pixel"></div><div class="pixel p5"></div>
+                  <div class="pixel p2"></div><div class="pixel p1"></div><div class="pixel"></div><div class="pixel p3"></div><div class="pixel p6"></div><div class="pixel"></div><div class="pixel p8"></div><div class="pixel p5"></div><div class="pixel p4"></div><div class="pixel"></div><div class="pixel p7"></div><div class="pixel p1"></div>
+                  <div class="pixel p4"></div><div class="pixel"></div><div class="pixel p3"></div><div class="pixel p2"></div><div class="pixel p1"></div><div class="pixel p5"></div><div class="pixel"></div><div class="pixel p6"></div><div class="pixel p8"></div><div class="pixel p4"></div><div class="pixel"></div><div class="pixel p7"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-card">
+              <div>
+                <div class="stats-number">🔥 12</div>
+                <div class="stats-label">days streak</div>
+              </div>
+
+              <div class="stats-mini">📈</div>
+            </div>
+
+            <div class="mini-tabbar">
+              <div class="tab-item active">
+                <div class="tab-emoji">😊</div>
+                <div class="tab-text">Mood</div>
+              </div>
+
+              <div class="tab-item">
+                <div class="tab-emoji">💧</div>
+                <div class="tab-text">Water</div>
+              </div>
+
+              <div class="tab-item">
+                <div class="tab-emoji">💪</div>
+                <div class="tab-text">Gym</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="updates">
+      <h2 class="section-heading">Everything in one pixel story.</h2>
+      <p class="section-subtitle">
+        Simple, colorful and made for daily progress.
+      </p>
+
+      <div class="update-grid">
+        <div class="update-card">
+          <h3>📅 Track your year</h3>
+          <p>Every day becomes one small colorful pixel.</p>
+        </div>
+
+        <div class="update-card">
+          <h3>🔥 Build streaks</h3>
+          <p>Stay consistent and challenge your friends.</p>
+        </div>
+
+        <div class="update-card">
+          <h3>📲 Share progress</h3>
+          <p>Post your streak and stats on social media.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wide-section">
+      <h2 class="section-heading">More than a mood tracker.</h2>
+
+      <div class="feature-list">
+        <div class="feature-row">
+          <div class="feature-icon">🖼️</div>
+          <div>
+            <strong>Add pictures</strong>
+            <span>Save memories with your daily pixels and look back at them anytime.</span>
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-icon">⏰</div>
+          <div>
+            <strong>Never forget a day</strong>
+            <span>Build your routine and keep your streak alive.</span>
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-icon">📊</div>
+          <div>
+            <strong>Always see your stats</strong>
+            <span>Check your progress, most used moods and yearly overview whenever you want.</span>
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-icon">🎯</div>
+          <div>
+            <strong>Create your own categories</strong>
+            <span>Track mood, water, gym, school, habits or anything else.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Happy Pixels · Updates coming soon
+    </footer>
+  </main>
+</body>
+</html>
