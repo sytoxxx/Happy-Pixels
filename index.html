@@ -39,6 +39,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 80px;
+      gap: 18px;
     }
 
     .logo {
@@ -46,9 +47,20 @@
       font-weight: 900;
       letter-spacing: 5px;
       color: #ff2d55;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
-    .nav-pill {
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-pill,
+    .social-pill {
       padding: 10px 16px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.75);
@@ -58,6 +70,20 @@
       font-weight: 800;
       color: #8e8e99;
       backdrop-filter: blur(18px);
+      text-decoration: none;
+    }
+
+    .social-pill {
+      color: #11111a;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .social-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 38px rgba(0,0,0,0.10);
     }
 
     .hero {
@@ -506,9 +532,38 @@
       text-align: center;
     }
 
+    .footer-socials {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-social {
+      text-decoration: none;
+      color: #11111a;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 900;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.07);
+    }
+
     @media (max-width: 850px) {
       header {
         margin-bottom: 48px;
+        align-items: flex-start;
+      }
+
+      .header-right {
+        gap: 8px;
+      }
+
+      .nav-pill,
+      .social-pill {
+        padding: 9px 12px;
+        font-size: 12px;
       }
 
       .hero {
@@ -536,19 +591,42 @@
         letter-spacing: -2.5px;
       }
     }
+
+    @media (max-width: 520px) {
+      header {
+        flex-direction: column;
+      }
+
+      .header-right {
+        justify-content: flex-start;
+      }
+    }
   </style>
 </head>
 
 <body>
   <main class="page">
     <header>
-      <div class="logo">HAPPY PIXELS</div>
-      <div class="nav-pill">Coming Soon</div>
+      <a class="logo" href="https://www.tiktok.com/@happy..pixels" target="_blank" rel="noopener noreferrer">
+        HAPPY PIXELS
+      </a>
+
+      <div class="header-right">
+        <a class="social-pill" href="https://www.tiktok.com/@happy..pixels" target="_blank" rel="noopener noreferrer">
+          🎵 TikTok
+        </a>
+
+        <a class="social-pill" href="https://www.instagram.com/happy_pixels.app/" target="_blank" rel="noopener noreferrer">
+          📸 Instagram
+        </a>
+
+        <div class="nav-pill">Coming Soon</div>
+      </div>
     </header>
 
     <section class="hero">
       <div>
-        <div class="tag">🔥 Streak Challenges and more</div>
+        <div class="tag">🔥 Streak Challenge and more</div>
 
         <h1>
           Your Year.<br />
@@ -561,17 +639,17 @@
         </p>
 
         <div class="coming-card">
-          <div class="coming-title">Soon available on</div>
+          <div class="coming-title">Bald verfügbar auf</div>
 
           <div class="store-row">
             <div class="store-pill">
               <span class="store-icon">🍎</span>
-              <span>iOS</span>
+              <span>iOS Soon</span>
             </div>
 
             <div class="store-pill light">
               <span class="store-icon">🤖</span>
-              <span>Android</span>
+              <span>Android Soon</span>
             </div>
           </div>
         </div>
@@ -735,6 +813,16 @@
 
     <footer>
       © 2026 Happy Pixels · Updates coming soon
+
+      <div class="footer-socials">
+        <a class="footer-social" href="https://www.tiktok.com/@happy..pixels" target="_blank" rel="noopener noreferrer">
+          🎵 Follow on TikTok
+        </a>
+
+        <a class="footer-social" href="https://www.instagram.com/happy_pixels.app/" target="_blank" rel="noopener noreferrer">
+          📸 Follow on Instagram
+        </a>
+      </div>
     </footer>
   </main>
 </body>
