@@ -3,7 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Pixels</title>
+  <title>Happy Pixels – Dein persönlicher Mood Tracker</title>
+  <meta name="description" content="Happy Pixels ist dein persönlicher Mood Tracker. Halte deine tägliche Stimmung als Pixel fest, baue Streaks auf und sieh dein ganzes Jahr auf einen Blick." />
+  <meta name="author" content="Happy Pixels" />
+  <meta name="theme-color" content="#ff2d55" />
+  <link rel="canonical" href="https://happypixels.app/" />
+  <link rel="alternate" hreflang="de" href="https://happypixels.app/" />
+  <link rel="alternate" hreflang="x-default" href="https://happypixels.app/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Happy Pixels" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:url" content="https://happypixels.app/" />
+  <meta property="og:title" content="Happy Pixels – Dein persönlicher Mood Tracker" />
+  <meta property="og:description" content="Happy Pixels ist dein persönlicher Mood Tracker. Halte deine tägliche Stimmung als Pixel fest, baue Streaks auf und sieh dein ganzes Jahr auf einen Blick." />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Happy Pixels – Dein persönlicher Mood Tracker" />
+  <meta name="twitter:description" content="Happy Pixels ist dein persönlicher Mood Tracker. Halte deine tägliche Stimmung als Pixel fest, baue Streaks auf und sieh dein ganzes Jahr auf einen Blick." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://happypixels.app/#website",
+        "name": "Happy Pixels",
+        "url": "https://happypixels.app/",
+        "inLanguage": "de",
+        "description": "Happy Pixels ist ein persönlicher Mood Tracker und ein Mood Journal für den Alltag."
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://happypixels.app/#app",
+        "name": "Happy Pixels",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "iOS, Android",
+        "url": "https://happypixels.app/",
+        "inLanguage": ["de", "en"],
+        "description": "Mood-Tracking-App, mit der du deine tägliche Stimmung als Pixel festhältst, Streaks aufbaust und dein Jahr als farbige Übersicht siehst."
+      }
+    ]
+  }
+  </script>
 
   <style>
     * {
@@ -11,6 +55,18 @@
       padding: 0;
       box-sizing: border-box;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     body {
@@ -512,10 +568,11 @@
       flex-shrink: 0;
     }
 
-    .feature-row strong {
+    .feature-row h3 {
       display: block;
       font-size: 17px;
-      margin-bottom: 4px;
+      font-weight: 700;
+      margin: 0 0 4px;
     }
 
     .feature-row span {
@@ -538,6 +595,12 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 12px;
+    }
+
+    .footer-home {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 800;
     }
 
     .footer-social {
@@ -607,7 +670,7 @@
 <body>
   <main class="page">
     <header>
-      <a class="logo" href="https://www.tiktok.com/@happy..pixels" target="_blank" rel="noopener noreferrer">
+      <a class="logo" href="https://happypixels.app/" aria-label="Happy Pixels – Startseite">
         HAPPY PIXELS
       </a>
 
@@ -624,11 +687,12 @@
       </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="mood-tracker" aria-labelledby="hero-heading">
       <div>
         <div class="tag">🔥 Streak Challenge and more</div>
 
-        <h1>
+        <h1 id="hero-heading">
+          <span class="visually-hidden">Happy Pixels – dein persönlicher Mood Tracker. </span>
           Your Year.<br />
           Your Mood.<br />
           <span class="gradient-text">Your Pixels.</span>
@@ -656,7 +720,11 @@
       </div>
 
       <div class="phone-wrap">
-        <div class="phone">
+        <div
+          class="phone"
+          role="img"
+          aria-label="Happy Pixels App: Mood Tracker mit Jahres-Pixelgrid, Streak und Kategorien wie Mood, Water und Gym"
+        >
           <div class="phone-screen">
             <div class="phone-top">
               <div>
@@ -749,8 +817,8 @@
       </div>
     </section>
 
-    <section class="updates">
-      <h2 class="section-heading">Everything in one pixel story.</h2>
+    <section class="updates" id="features" aria-labelledby="features-heading">
+      <h2 class="section-heading" id="features-heading">Everything in one pixel story.</h2>
       <p class="section-subtitle">
         Simple, colorful and made for daily progress.
       </p>
@@ -773,14 +841,14 @@
       </div>
     </section>
 
-    <section class="wide-section">
-      <h2 class="section-heading">More than a mood tracker.</h2>
+    <section class="wide-section" id="more" aria-labelledby="more-heading">
+      <h2 class="section-heading" id="more-heading">More than a mood tracker.</h2>
 
       <div class="feature-list">
         <div class="feature-row">
           <div class="feature-icon">🖼️</div>
           <div>
-            <strong>Add pictures</strong>
+            <h3>Add pictures</h3>
             <span>Save memories with your daily pixels and look back at them anytime.</span>
           </div>
         </div>
@@ -788,7 +856,7 @@
         <div class="feature-row">
           <div class="feature-icon">⏰</div>
           <div>
-            <strong>Never forget a day</strong>
+            <h3>Never forget a day</h3>
             <span>Build your routine and keep your streak alive.</span>
           </div>
         </div>
@@ -796,7 +864,7 @@
         <div class="feature-row">
           <div class="feature-icon">📊</div>
           <div>
-            <strong>Always see your stats</strong>
+            <h3>Always see your stats</h3>
             <span>Check your progress, most used moods and yearly overview whenever you want.</span>
           </div>
         </div>
@@ -804,7 +872,7 @@
         <div class="feature-row">
           <div class="feature-icon">🎯</div>
           <div>
-            <strong>Create your own categories</strong>
+            <h3>Create your own categories</h3>
             <span>Track mood, water, gym, school, habits or anything else.</span>
           </div>
         </div>
@@ -812,7 +880,7 @@
     </section>
 
     <footer>
-      © 2026 Happy Pixels · Updates coming soon
+      © 2026 <a class="footer-home" href="https://happypixels.app/">Happy Pixels</a> · Updates coming soon
 
       <div class="footer-socials">
         <a class="footer-social" href="https://www.tiktok.com/@happy..pixels" target="_blank" rel="noopener noreferrer">
