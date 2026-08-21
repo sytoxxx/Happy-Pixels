@@ -18,10 +18,18 @@
   <meta property="og:url" content="https://happypixels.app/" />
   <meta property="og:title" content="Happy Pixels – Dein persönlicher Mood Tracker" />
   <meta property="og:description" content="Happy Pixels ist dein persönlicher Mood Tracker. Halte deine tägliche Stimmung als Pixel fest, baue Streaks auf und sieh dein ganzes Jahr auf einen Blick." />
+  <meta property="og:image" content="https://happypixels.app/og-image.png" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:alt" content="Happy Pixels App Icon" />
 
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Happy Pixels – Dein persönlicher Mood Tracker" />
   <meta name="twitter:description" content="Happy Pixels ist dein persönlicher Mood Tracker. Halte deine tägliche Stimmung als Pixel fest, baue Streaks auf und sieh dein ganzes Jahr auf einen Blick." />
+  <meta name="twitter:image" content="https://happypixels.app/og-image.png" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 
   <script type="application/ld+json">
   {
@@ -43,7 +51,8 @@
         "operatingSystem": "iOS, Android",
         "url": "https://happypixels.app/",
         "inLanguage": ["de", "en"],
-        "description": "Mood-Tracking-App, mit der du deine tägliche Stimmung als Pixel festhältst, Streaks aufbaust und dein Jahr als farbige Übersicht siehst."
+        "description": "Mood-Tracking-App, mit der du deine tägliche Stimmung als Pixel festhältst, Streaks aufbaust und dein Jahr als farbige Übersicht siehst.",
+        "image": "https://happypixels.app/og-image.png"
       }
     ]
   }
@@ -99,12 +108,20 @@
     }
 
     .logo {
-      font-size: 15px;
-      font-weight: 900;
-      letter-spacing: 5px;
-      color: #ff2d55;
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
-      white-space: nowrap;
+      flex-shrink: 1;
+      max-width: min(240px, 58vw);
+    }
+
+    .logo-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 42px;
+      object-fit: contain;
+      object-position: left center;
     }
 
     .header-right {
@@ -619,6 +636,14 @@
         align-items: flex-start;
       }
 
+      .logo {
+        max-width: min(200px, 55vw);
+      }
+
+      .logo-img {
+        max-height: 36px;
+      }
+
       .header-right {
         gap: 8px;
       }
@@ -670,8 +695,14 @@
 <body>
   <main class="page">
     <header>
-      <a class="logo" href="https://happypixels.app/" aria-label="Happy Pixels – Startseite">
-        HAPPY PIXELS
+      <a class="logo" href="https://happypixels.app/">
+        <img
+          class="logo-img"
+          src="assets/happy-pixels-wordmark.png"
+          width="1024"
+          height="682"
+          alt="Happy Pixels"
+        />
       </a>
 
       <div class="header-right">
