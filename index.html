@@ -111,15 +111,22 @@
       display: inline-flex;
       align-items: center;
       text-decoration: none;
-      flex-shrink: 1;
-      max-width: min(240px, 58vw);
+      flex-shrink: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      line-height: 0;
     }
 
     .logo-img {
       display: block;
-      width: 100%;
+      width: 170px;
       height: auto;
-      max-height: 42px;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
       object-fit: contain;
       object-position: left center;
     }
@@ -636,12 +643,8 @@
         align-items: flex-start;
       }
 
-      .logo {
-        max-width: min(200px, 55vw);
-      }
-
       .logo-img {
-        max-height: 36px;
+        width: 140px;
       }
 
       .header-right {
@@ -699,8 +702,8 @@
         <img
           class="logo-img"
           src="assets/happy-pixels-wordmark.png"
-          width="1024"
-          height="682"
+          width="612"
+          height="408"
           alt="Happy Pixels"
         />
       </a>
