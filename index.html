@@ -306,7 +306,24 @@
       font-size: 15px;
       font-weight: 700;
       line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .early-access-perk {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 16px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 45, 85, 0.08), rgba(255, 149, 0, 0.08), rgba(0, 122, 255, 0.08));
+      border: 1px solid rgba(255, 45, 85, 0.12);
+      color: #3a3a48;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      box-shadow: 0 8px 22px rgba(255, 45, 85, 0.06);
     }
 
     .early-access-fields {
@@ -791,6 +808,14 @@
         flex-direction: column;
       }
 
+      .early-access-perk {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 12.5px;
+        padding: 10px 12px;
+      }
+
       .early-access-button {
         width: 100%;
       }
@@ -897,6 +922,7 @@
         <section class="early-access-card" id="early-access" aria-labelledby="early-access-heading">
           <h2 class="early-access-title" id="early-access-heading">Get Early Access to Happy Pixels</h2>
           <p class="early-access-text">Be one of the first to try Happy Pixels when it launches.</p>
+          <p class="early-access-perk">🎁 First 1,000 members get a special Mystery Gift at launch.</p>
 
           <form
             class="early-access-form"
