@@ -146,35 +146,24 @@
       margin-top: 12px;
     }
 
-    .operator-block {
+    .operator {
       margin-top: 8px;
-      color: #4a4a55;
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.7;
+      color: #11111a;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.55;
     }
 
-    .operator-block a {
+    .operator a {
       color: #11111a;
       font-weight: 700;
       text-underline-offset: 2px;
     }
 
-    .note {
-      margin-top: 18px;
-      color: #6f6f7a;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.55;
-    }
-
-    .to-confirm {
-      display: inline;
-      background: rgba(255, 45, 85, 0.08);
-      color: #8a3048;
-      border-radius: 8px;
-      padding: 1px 6px;
+    a.inline-link {
+      color: #11111a;
       font-weight: 700;
+      text-underline-offset: 2px;
     }
 
     footer {
@@ -191,6 +180,7 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 12px;
+      align-items: center;
     }
 
     .footer-link {
@@ -201,6 +191,12 @@
       padding: 12px 18px;
       font-weight: 900;
       box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
+    }
+
+    .footer-sep {
+      color: #c5c5ce;
+      font-weight: 800;
+      font-size: 14px;
     }
 
     @media (max-width: 600px) {
@@ -228,7 +224,8 @@
       }
 
       p,
-      .operator-block {
+      li,
+      .operator {
         font-size: 14.5px;
       }
     }
@@ -257,46 +254,42 @@
 
     <article class="content">
       <h1>Imprint</h1>
-      <p class="meta">Information according to Austrian disclosure requirements</p>
+      <p class="meta">Operator information for this website</p>
 
-      <h2>Operator of this website</h2>
-      <div class="operator-block">
+      <h2>Happy Pixels</h2>
+      <p class="operator">
         Levente Koncz<br />
         Hauptstraße 8<br />
         8632 Mariazell<br />
-        Austria<br />
-        Email:
-        <a href="mailto:levente.koncz.web@gmail.com">levente.koncz.web@gmail.com</a>
-      </div>
-
-      <p class="note">
-        Happy Pixels is currently operated by Levente Koncz personally.
-        There is currently no registered company and no registered trade/business
-        associated with this website.
+        Austria
       </p>
 
       <h2>Contact</h2>
-      <p>
-        For questions about this website, please contact:
+      <p class="operator">
+        Email:
         <a href="mailto:levente.koncz.web@gmail.com">levente.koncz.web@gmail.com</a>
       </p>
 
-      <h2>Additional information</h2>
+      <h2>Website</h2>
       <p>
-        Phone number:
-        <span class="to-confirm">[TO BE CONFIRMED]</span>
+        <a class="inline-link" href="https://happypixels.app/">https://happypixels.app/</a>
       </p>
       <p>
-        VAT identification number:
-        not applicable / not available, as no registered business currently exists.
+        Happy Pixels is operated personally by Levente Koncz.
+      </p>
+
+      <h2>Privacy</h2>
+      <p>
+        Information about personal data processing on this website is available in the
+        <a class="inline-link" href="/privacy-policy">Privacy Policy</a>.
       </p>
     </article>
 
     <footer>
       © 2026 Happy Pixels
       <div class="footer-links">
-        <a class="footer-link" href="https://happypixels.app/">Home</a>
         <a class="footer-link" href="/privacy-policy">Privacy Policy</a>
+        <span class="footer-sep" aria-hidden="true">·</span>
         <a class="footer-link" href="/imprint">Imprint</a>
       </div>
     </footer>

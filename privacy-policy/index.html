@@ -154,28 +154,24 @@
       margin-top: 8px;
     }
 
-    .operator-block {
+    .operator {
       margin-top: 8px;
-      color: #4a4a55;
+      color: #11111a;
       font-size: 15px;
-      font-weight: 600;
-      line-height: 1.7;
+      font-weight: 700;
+      line-height: 1.55;
     }
 
-    .operator-block a,
-    a.inline-link {
+    .operator a {
       color: #11111a;
       font-weight: 700;
       text-underline-offset: 2px;
     }
 
-    .to-confirm {
-      display: inline;
-      background: rgba(255, 45, 85, 0.08);
-      color: #8a3048;
-      border-radius: 8px;
-      padding: 1px 6px;
+    a.inline-link {
+      color: #11111a;
       font-weight: 700;
+      text-underline-offset: 2px;
     }
 
     footer {
@@ -192,6 +188,7 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 12px;
+      align-items: center;
     }
 
     .footer-link {
@@ -202,6 +199,12 @@
       padding: 12px 18px;
       font-weight: 900;
       box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
+    }
+
+    .footer-sep {
+      color: #c5c5ce;
+      font-weight: 800;
+      font-size: 14px;
     }
 
     @media (max-width: 600px) {
@@ -230,7 +233,7 @@
 
       p,
       li,
-      .operator-block {
+      .operator {
         font-size: 14.5px;
       }
     }
@@ -267,25 +270,23 @@
         handles personal data in connection with the Early Access signup form.
       </p>
 
-      <h2>1. Controller</h2>
+      <h2>1. Who operates this website</h2>
       <p>
-        The controller responsible for the processing described in this policy is:
+        This website is operated by:
       </p>
-      <div class="operator-block">
+      <p class="operator">
         Levente Koncz<br />
         Hauptstraße 8<br />
         8632 Mariazell<br />
         Austria<br />
         Email:
         <a href="mailto:levente.koncz.web@gmail.com">levente.koncz.web@gmail.com</a>
-      </div>
+      </p>
       <p>
-        Happy Pixels is currently operated by Levente Koncz personally.
-        There is currently no registered company and no registered trade/business
-        associated with this website.
+        Happy Pixels is operated personally by Levente Koncz.
       </p>
 
-      <h2>2. What data we collect</h2>
+      <h2>2. What data is collected</h2>
       <p>
         If you use the Early Access form on this website, we collect the email address you voluntarily submit.
       </p>
@@ -293,106 +294,113 @@
         We do not ask for a name, password, payment details, or account information on this website.
       </p>
 
-      <h2>3. How we collect your email</h2>
-      <p>
-        You can choose to enter your email address into the Early Access form and submit it.
-        Submission is voluntary. If you do not submit the form, we do not collect an email address through this feature.
-      </p>
-
-      <h2>4. Purpose of processing</h2>
+      <h2>3. Why we collect it</h2>
       <p>We use your email address to:</p>
       <ul>
-        <li>add you to the Happy Pixels Early Access list,</li>
-        <li>send updates about the Happy Pixels launch,</li>
-        <li>send Early Access information and related offers.</li>
+        <li>provide Happy Pixels launch updates,</li>
+        <li>send Early Access information,</li>
+        <li>send Happy Pixels-related offers.</li>
       </ul>
 
-      <h2>5. How your email is processed</h2>
+      <h2>4. How your email is processed</h2>
       <p>When you submit the Early Access form, the following happens:</p>
       <ul>
-        <li>Your browser sends the email address to the Happy Pixels Cloudflare Worker.</li>
-        <li>The Cloudflare Worker sends the email address to Brevo.</li>
-        <li>Brevo stores the email in the Happy Pixels early-access list.</li>
+        <li>
+          Your browser sends the email address securely via HTTPS to the Happy Pixels Cloudflare Worker.
+        </li>
+        <li>
+          The Cloudflare Worker forwards the email address to Brevo.
+        </li>
+        <li>
+          Brevo stores the contact in the “Happy Pixels Website” list.
+        </li>
       </ul>
       <p>
-        The third-party services involved in this process are Cloudflare (Worker) and Brevo (email contact list).
+        Cloudflare provides the Worker that receives the form submission.
+        Brevo stores the contact and is used to manage the Early Access list and related email communication.
       </p>
 
-      <h2>6. Website hosting</h2>
+      <h2>5. Purpose of the Early Access list</h2>
+      <p>
+        The Early Access list is used to inform you about the Happy Pixels launch,
+        Early Access opportunities, and Happy Pixels-related offers.
+      </p>
+
+      <h2>6. Website hosting and what we do not do</h2>
       <p>
         This website is a static site hosted on GitHub Pages.
-        The pages themselves do not include analytics scripts, advertising trackers,
-        login systems, or payment processing.
       </p>
-
-      <h2>7. Cookies and tracking</h2>
-      <p>
-        Based on the current website code, Happy Pixels does not set its own analytics,
-        advertising, or tracking cookies, and it does not load analytics or advertising scripts.
-      </p>
-      <p>
-        TikTok and Instagram appear on this website only as external links.
-        If you click those links, those platforms may process data under their own privacy policies.
-        We do not send your Early Access email address to those platforms through this website.
-      </p>
-
-      <h2>8. What we do not do on this website</h2>
-      <p>Based on the current website implementation, we do not:</p>
+      <p>Based on the current website, we do not:</p>
       <ul>
         <li>create user accounts or require login,</li>
         <li>process payments,</li>
         <li>run website analytics tools,</li>
         <li>run advertising trackers,</li>
+        <li>set our own tracking cookies,</li>
+        <li>intentionally collect other personal data beyond the Early Access email,</li>
         <li>sell your email address.</li>
       </ul>
 
-      <h2>9. Retention</h2>
+      <h2>7. Cookies and external links</h2>
       <p>
-        We keep your email address in the Early Access list for as long as it is needed to send
-        launch and Early Access updates, or until you unsubscribe or request deletion.
-        Exact maximum retention period:
-        <span class="to-confirm">[TO BE CONFIRMED]</span>
+        The Happy Pixels website does not currently set its own analytics, advertising, or tracking cookies,
+        and it does not load analytics or advertising scripts as part of the site’s own code.
+      </p>
+      <p>
+        TikTok and Instagram appear on this website only as external links.
+        If you open those links, those platforms may process data under their own privacy policies.
+        We do not send your Early Access email address to TikTok or Instagram through this website.
       </p>
 
-      <h2>10. Your choices and rights</h2>
+      <h2>8. How long we keep your email</h2>
       <p>
-        You can unsubscribe from Early Access emails at any time using the unsubscribe option
-        provided in those emails (where available through Brevo), or by contacting us.
+        We keep your email address in the Early Access list for as long as it is needed to send launch updates,
+        Early Access information, and related offers, or until you unsubscribe or ask us to delete it.
+      </p>
+
+      <h2>9. Unsubscribe and your rights</h2>
+      <p>
+        You can unsubscribe from future Early Access emails at any time using the unsubscribe option in those emails
+        (where provided by Brevo), or by contacting us.
       </p>
       <p>
-        Depending on applicable law, you may also have rights to access, correct, delete, or restrict
-        processing of your personal data, and to object to certain processing.
+        Depending on applicable law, you may also have rights to access, correct, delete, or restrict processing of your personal data,
+        and to object to certain processing.
       </p>
       <p>
         To exercise these rights, contact:
-        <a class="inline-link" href="mailto:levente.koncz.web@gmail.com">levente.koncz.web@gmail.com</a>
+      </p>
+      <p class="operator">
+        Levente Koncz<br />
+        Email:
+        <a href="mailto:levente.koncz.web@gmail.com">levente.koncz.web@gmail.com</a>
       </p>
 
-      <h2>11. Changes to this policy</h2>
+      <h2>10. Changes to this policy</h2>
       <p>
         We may update this Privacy Policy when our website practices change.
         The “Last updated” date at the top of this page will be revised when changes are made.
       </p>
 
-      <h2>12. Contact</h2>
+      <h2>11. Contact</h2>
       <p>
-        For privacy-related questions about the Early Access signup, contact:
+        For privacy-related questions about this website or the Early Access signup, contact:
       </p>
-      <div class="operator-block">
+      <p class="operator">
         Levente Koncz<br />
         Hauptstraße 8<br />
         8632 Mariazell<br />
         Austria<br />
         Email:
         <a href="mailto:levente.koncz.web@gmail.com">levente.koncz.web@gmail.com</a>
-      </div>
+      </p>
     </article>
 
     <footer>
       © 2026 Happy Pixels
       <div class="footer-links">
-        <a class="footer-link" href="https://happypixels.app/">Home</a>
         <a class="footer-link" href="/privacy-policy">Privacy Policy</a>
+        <span class="footer-sep" aria-hidden="true">·</span>
         <a class="footer-link" href="/imprint">Imprint</a>
       </div>
     </footer>
