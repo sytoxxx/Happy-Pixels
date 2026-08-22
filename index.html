@@ -948,9 +948,14 @@
 
     .footer-legal {
       margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
     }
 
-    .footer-privacy {
+    .footer-privacy,
+    .footer-imprint {
       color: #8e8e99;
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -959,7 +964,9 @@
     }
 
     .footer-privacy:hover,
-    .footer-privacy:focus-visible {
+    .footer-privacy:focus-visible,
+    .footer-imprint:hover,
+    .footer-imprint:focus-visible {
       color: #6f6f7a;
     }
 
@@ -1384,6 +1391,7 @@
 
       <div class="footer-legal">
         <a class="footer-privacy" href="/privacy-policy">Privacy Policy</a>
+        <a class="footer-imprint" href="/imprint">Imprint</a>
       </div>
 
       <div class="footer-socials">
