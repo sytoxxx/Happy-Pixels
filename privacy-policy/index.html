@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy – Happy Pixels</title>
+  <meta name="description" content="Privacy Policy for the Happy Pixels website Early Access signup." />
+  <meta name="theme-color" content="#ff2d55" />
+  <link rel="canonical" href="https://happypixels.app/privacy-policy" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(255, 45, 85, 0.22), transparent 34%),
+        radial-gradient(circle at top right, rgba(0, 122, 255, 0.18), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(255, 149, 0, 0.14), transparent 32%),
+        linear-gradient(180deg, #fbfafd 0%, #f4f3f9 100%);
+      color: #11111a;
+      overflow-x: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 28px 22px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+      gap: 18px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .logo-mark {
+      display: block;
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.28em;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .logo-happy {
+      color: #11111a;
+    }
+
+    .logo-pixels {
+      background: linear-gradient(90deg, #ff2d55, #ff9500, #ffcc00, #34c759, #00c7be, #007aff, #af52de);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: #6f6f7a;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(18px);
+      white-space: nowrap;
+    }
+
+    .back-link:hover {
+      color: #11111a;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 760px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 34px;
+      padding: 34px 30px;
+      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.07);
+      backdrop-filter: blur(18px);
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 44px);
+      font-weight: 950;
+      letter-spacing: -1.6px;
+      margin-bottom: 10px;
+    }
+
+    .meta {
+      color: #8e8e99;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      margin: 28px 0 10px;
+    }
+
+    p,
+    li {
+      color: #4a4a55;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    p + p {
+      margin-top: 12px;
+    }
+
+    ul {
+      margin: 10px 0 0 18px;
+    }
+
+    li + li {
+      margin-top: 8px;
+    }
+
+    .placeholder {
+      display: inline;
+      background: rgba(255, 45, 85, 0.08);
+      color: #8a3048;
+      border-radius: 8px;
+      padding: 1px 6px;
+      font-weight: 700;
+    }
+
+    a.inline-link {
+      color: #11111a;
+      font-weight: 700;
+      text-underline-offset: 2px;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #9b9ba5;
+      font-weight: 800;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-link {
+      text-decoration: none;
+      color: #11111a;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 900;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        margin-bottom: 28px;
+        align-items: flex-start;
+      }
+
+      .logo-mark {
+        width: 34px;
+        height: 34px;
+      }
+
+      .logo-text {
+        font-size: 17px;
+      }
+
+      .content {
+        padding: 26px 18px;
+        border-radius: 28px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      p,
+      li {
+        font-size: 14.5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header>
+      <a class="logo" href="https://happypixels.app/" aria-label="Happy Pixels">
+        <img
+          class="logo-mark"
+          src="/assets/happy-pixels-icon.png"
+          width="1024"
+          height="1024"
+          alt=""
+        />
+        <span class="logo-text">
+          <span class="logo-happy">Happy</span>
+          <span class="logo-pixels">Pixels</span>
+        </span>
+      </a>
+
+      <a class="back-link" href="https://happypixels.app/">← Back to Home</a>
+    </header>
+
+    <article class="content">
+      <h1>Privacy Policy</h1>
+      <p class="meta">Last updated: August 22, 2026</p>
+
+      <p>
+        This Privacy Policy explains how the Happy Pixels website
+        (<a class="inline-link" href="https://happypixels.app/">https://happypixels.app/</a>)
+        handles personal data in connection with the Early Access signup form.
+      </p>
+
+      <h2>1. Controller</h2>
+      <p>
+        The controller responsible for the processing described in this policy is:
+        <span class="placeholder">[LEGAL OPERATOR INFORMATION TO BE COMPLETED]</span>
+      </p>
+
+      <h2>2. What data we collect</h2>
+      <p>
+        If you use the Early Access form on this website, we collect the email address you voluntarily submit.
+      </p>
+      <p>
+        We do not ask for a name, password, payment details, or account information on this website.
+      </p>
+
+      <h2>3. How we collect your email</h2>
+      <p>
+        You can choose to enter your email address into the Early Access form and submit it.
+        Submission is voluntary. If you do not submit the form, we do not collect an email address through this feature.
+      </p>
+
+      <h2>4. Purpose of processing</h2>
+      <p>We use your email address to:</p>
+      <ul>
+        <li>add you to the Happy Pixels Early Access list,</li>
+        <li>send updates about the Happy Pixels launch,</li>
+        <li>send related Early Access communications and offers.</li>
+      </ul>
+
+      <h2>5. How your email is processed</h2>
+      <p>When you submit the Early Access form, the following happens:</p>
+      <ul>
+        <li>Your browser sends the email address to our Cloudflare Worker endpoint.</li>
+        <li>The Cloudflare Worker forwards the email address to Brevo.</li>
+        <li>Brevo stores the contact in our “Happy Pixels Website” early-access list.</li>
+      </ul>
+      <p>
+        The third-party services involved in this process are Cloudflare (Worker) and Brevo (email contact list).
+      </p>
+
+      <h2>6. Website hosting</h2>
+      <p>
+        This website is a static site hosted on GitHub Pages. The pages themselves do not include analytics scripts,
+        advertising cookies, login systems, or payment processing.
+      </p>
+
+      <h2>7. Cookies and tracking</h2>
+      <p>
+        The Happy Pixels website does not currently set its own analytics, advertising, or tracking cookies,
+        and it does not load analytics or advertising scripts as part of the site’s own code.
+      </p>
+      <p>
+        If you click outbound links to platforms such as TikTok or Instagram, those platforms may process data
+        under their own privacy policies. We do not send your Early Access email address to those platforms through this website.
+      </p>
+
+      <h2>8. What we do not do on this website</h2>
+      <p>Based on the current website implementation, we do not:</p>
+      <ul>
+        <li>create user accounts or require login,</li>
+        <li>process payments,</li>
+        <li>run website analytics tools,</li>
+        <li>run advertising trackers,</li>
+        <li>sell your email address.</li>
+      </ul>
+
+      <h2>9. Retention</h2>
+      <p>
+        We keep your email address in the Early Access list for as long as it is needed to send launch and Early Access updates,
+        or until you unsubscribe / request deletion.
+        <span class="placeholder">[RETENTION DETAILS TO BE COMPLETED IF REQUIRED]</span>
+      </p>
+
+      <h2>10. Your choices and rights</h2>
+      <p>
+        You can unsubscribe from Early Access emails at any time using the unsubscribe option provided in those emails
+        (where available through Brevo), or by contacting us.
+      </p>
+      <p>
+        Depending on applicable law, you may also have rights to access, correct, delete, or restrict processing of your personal data,
+        and to object to certain processing.
+      </p>
+      <p>
+        To exercise these rights, contact:
+        <span class="placeholder">[LEGAL OPERATOR INFORMATION TO BE COMPLETED]</span>
+      </p>
+
+      <h2>11. Changes to this policy</h2>
+      <p>
+        We may update this Privacy Policy when our website practices change.
+        The “Last updated” date at the top of this page will be revised when changes are made.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        For privacy-related questions about the Early Access signup, contact:
+        <span class="placeholder">[LEGAL OPERATOR INFORMATION TO BE COMPLETED]</span>
+      </p>
+    </article>
+
+    <footer>
+      © 2026 Happy Pixels
+      <div class="footer-links">
+        <a class="footer-link" href="https://happypixels.app/">Home</a>
+        <a class="footer-link" href="/privacy-policy">Privacy Policy</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
