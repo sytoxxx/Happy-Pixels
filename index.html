@@ -283,6 +283,109 @@
       line-height: 1;
     }
 
+    .early-access-card {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: 34px;
+      padding: 24px;
+      max-width: 520px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.09);
+      backdrop-filter: blur(18px);
+    }
+
+    .early-access-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #11111a;
+      margin-bottom: 8px;
+    }
+
+    .early-access-text {
+      color: #6f6f7a;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    .early-access-fields {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .early-access-input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid #ececf2;
+      background: #ffffff;
+      color: #11111a;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .early-access-input::placeholder {
+      color: #a0a0aa;
+    }
+
+    .early-access-input:focus {
+      border-color: rgba(255, 45, 85, 0.45);
+      box-shadow: 0 0 0 3px rgba(255, 45, 85, 0.12);
+    }
+
+    .early-access-input:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .early-access-button {
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 18px;
+      background: #11111a;
+      color: #ffffff;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 900;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .early-access-button:hover:not(:disabled) {
+      opacity: 0.92;
+    }
+
+    .early-access-button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .early-access-message {
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .early-access-message.is-success {
+      color: #11111a;
+    }
+
+    .early-access-message.is-error {
+      color: #ff2d55;
+    }
+
+    .early-access-message[hidden] {
+      display: none;
+    }
+
     .phone-wrap {
       display: flex;
       justify-content: center;
@@ -684,6 +787,14 @@
         font-size: 12px;
       }
 
+      .early-access-fields {
+        flex-direction: column;
+      }
+
+      .early-access-button {
+        width: 100%;
+      }
+
       .hero {
         grid-template-columns: 1fr;
         gap: 45px;
@@ -782,6 +893,36 @@
             </div>
           </div>
         </div>
+
+        <section class="early-access-card" id="early-access" aria-labelledby="early-access-heading">
+          <h2 class="early-access-title" id="early-access-heading">Get Early Access to Happy Pixels</h2>
+          <p class="early-access-text">Be one of the first to try Happy Pixels when it launches.</p>
+
+          <form
+            class="early-access-form"
+            id="early-access-form"
+            data-endpoint="/api/early-access"
+            novalidate
+          >
+            <div class="early-access-fields">
+              <label class="visually-hidden" for="early-access-email">Email address</label>
+              <input
+                class="early-access-input"
+                type="email"
+                id="early-access-email"
+                name="email"
+                placeholder="Enter your email address"
+                autocomplete="email"
+                inputmode="email"
+                required
+              />
+              <button class="early-access-button" type="submit" id="early-access-submit">
+                Get Early Access
+              </button>
+            </div>
+            <p class="early-access-message" id="early-access-message" role="status" aria-live="polite" hidden></p>
+          </form>
+        </section>
       </div>
 
       <div class="phone-wrap">
@@ -958,5 +1099,79 @@
       </div>
     </footer>
   </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById("early-access-form");
+      if (!form) return;
+
+      var emailInput = document.getElementById("early-access-email");
+      var submitButton = document.getElementById("early-access-submit");
+      var message = document.getElementById("early-access-message");
+      var endpoint = form.getAttribute("data-endpoint") || "/api/early-access";
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function setMessage(text, type) {
+        message.hidden = false;
+        message.textContent = text;
+        message.className = "early-access-message" + (type ? " is-" + type : "");
+      }
+
+      function clearMessage() {
+        message.hidden = true;
+        message.textContent = "";
+        message.className = "early-access-message";
+      }
+
+      function setSubmitting(isSubmitting) {
+        submitButton.disabled = isSubmitting;
+        emailInput.disabled = isSubmitting;
+        submitButton.textContent = isSubmitting ? "Submitting..." : "Get Early Access";
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        clearMessage();
+
+        var email = emailInput.value.trim();
+        if (!email || !emailPattern.test(email)) {
+          setMessage("Please enter a valid email address.", "error");
+          emailInput.focus();
+          return;
+        }
+
+        setSubmitting(true);
+
+        fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email }),
+        })
+          .then(function (response) {
+            return response.json().catch(function () {
+              return {};
+            }).then(function (data) {
+              if (response.ok && data.ok) {
+                form.reset();
+                form.querySelector(".early-access-fields").hidden = true;
+                setMessage("You're on the list! 🎉 We'll let you know when Happy Pixels launches.", "success");
+                return;
+              }
+
+              var errorText = data && data.error
+                ? data.error
+                : "Something went wrong. Please try again in a moment.";
+              setMessage(errorText, "error");
+            });
+          })
+          .catch(function () {
+            setMessage("Unable to connect right now. Please try again in a moment.", "error");
+          })
+          .finally(function () {
+            setSubmitting(false);
+          });
+      });
+    })();
+  </script>
 </body>
 </html>

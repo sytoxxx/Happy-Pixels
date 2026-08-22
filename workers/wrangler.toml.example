@@ -1,0 +1,13 @@
+name = "happy-pixels-early-access"
+main = "early-access.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# Optional if you prefer secrets for both values instead.
+
+# Set secrets with:
+# wrangler secret put BREVO_API_KEY
+# wrangler secret put BREVO_LIST_ID
+
+# Route this worker to your landing page domain, for example:
+# routes = [{ pattern = "happypixels.app/api/early-access", zone_name = "happypixels.app" }]
