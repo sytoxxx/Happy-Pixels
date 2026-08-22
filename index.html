@@ -572,6 +572,28 @@
       display: none;
     }
 
+    .early-access-notice {
+      margin: 12px 0 0;
+      font-size: 11.5px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #9a9aa5;
+      text-align: center;
+    }
+
+    .early-access-notice a {
+      color: inherit;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 1px;
+    }
+
+    .early-access-notice a:hover,
+    .early-access-notice a:focus-visible {
+      color: #6f6f7a;
+    }
+
     .phone-wrap {
       display: flex;
       justify-content: center;
@@ -1171,6 +1193,10 @@
                 Get Early Access
               </button>
             </div>
+            <p class="early-access-notice">
+              By joining, you agree to receive updates about Happy Pixels. You can unsubscribe at any time.
+              <a href="/privacy-policy">Privacy Policy</a>
+            </p>
             <p class="early-access-message" id="early-access-message" role="status" aria-live="polite" hidden></p>
           </form>
         </section>
