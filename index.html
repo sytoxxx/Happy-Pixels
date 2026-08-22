@@ -901,7 +901,7 @@
           <form
             class="early-access-form"
             id="early-access-form"
-            data-endpoint="/api/early-access"
+            data-endpoint="https://happy-pixels-early-access.levikoncz2011.workers.dev/"
             novalidate
           >
             <div class="early-access-fields">
@@ -1151,15 +1151,15 @@
             return response.json().catch(function () {
               return {};
             }).then(function (data) {
-              if (response.ok && data.ok) {
+              if (response.ok && data && data.success) {
                 form.reset();
                 form.querySelector(".early-access-fields").hidden = true;
-                setMessage("You're on the list! 🎉 We'll let you know when Happy Pixels launches.", "success");
+                setMessage(data.message || "You're on the list! 🎉 We'll let you know when Happy Pixels launches.", "success");
                 return;
               }
 
-              var errorText = data && data.error
-                ? data.error
+              var errorText = (data && (data.error || data.message))
+                ? (data.error || data.message)
                 : "Something went wrong. Please try again in a moment.";
               setMessage(errorText, "error");
             });
