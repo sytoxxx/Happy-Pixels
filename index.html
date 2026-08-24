@@ -1493,7 +1493,7 @@
             return response.json().catch(function () {
               return {};
             }).then(function (data) {
-              if (response.ok && data && data.success) {
+              if (response.ok && data && (data.success === true || data.ok === true)) {
                 form.reset();
                 form.querySelector(".early-access-fields").hidden = true;
                 setMessage(data.message || "You're on the list! 🎉 We'll let you know when Happy Pixels launches.", "success");

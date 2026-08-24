@@ -10,7 +10,8 @@ function corsHeaders() {
 }
 
 function jsonResponse(body, status, extraHeaders) {
-  return new Response(JSON.stringify(body), {
+  const success = status >= 200 && status < 300;
+  return new Response(JSON.stringify({ success, ...body }), {
     status,
     headers: {
       "Content-Type": "application/json",
@@ -38,6 +39,10 @@ export default {
     try {
       payload = await request.json();
     } catch {
+      return jsonResponse({ error: "Invalid request body." }, 400);
+    }
+
+    if (payload == null || typeof payload !== "object" || Array.isArray(payload)) {
       return jsonResponse({ error: "Invalid request body." }, 400);
     }
 
