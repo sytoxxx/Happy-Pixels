@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#ff2d55" />
   <link rel="canonical" href="https://happypixels.app/" />
   <link rel="alternate" hreflang="en" href="https://happypixels.app/" />
+  <link rel="alternate" hreflang="de" href="https://happypixels.app/" />
   <link rel="alternate" hreflang="x-default" href="https://happypixels.app/" />
 
   <meta property="og:type" content="website" />
@@ -202,9 +203,42 @@
       box-shadow: 0 16px 38px rgba(255,45,85,0.3);
     }
 
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      backdrop-filter: blur(18px);
+      gap: 2px;
+    }
+
+    .lang-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #8e8e99;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      padding: 7px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-btn.is-active {
+      background: #11111a;
+      color: #ffffff;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .story-pill { transition: none; }
       .story-pill:hover, .story-pill:focus-visible { transform: none; }
+      .lang-btn { transition: none; }
     }
 
     .social-pill {
@@ -1199,13 +1233,18 @@
                 <span></span>
               </div>
 
-              <div class="social-tip" aria-label="Follow our journey">
-                <span class="social-tip-title">Follow our journey</span>
+              <div class="social-tip" data-i18n-aria="header.followTip" aria-label="Follow our journey">
+                <span class="social-tip-title" data-i18n="header.followTip">Follow our journey</span>
               </div>
             </div>
 
-            <div class="nav-pill">Coming Soon</div>
-            <a class="nav-pill story-pill" href="/story/">✨ Discover Happy Pixels</a>
+            <div class="nav-pill" data-i18n="header.comingSoon">Coming Soon</div>
+            <a class="nav-pill story-pill" href="/story/" data-i18n="header.discover">✨ Discover Happy Pixels</a>
+
+            <div class="lang-switch" role="group" aria-label="Language / Sprache">
+              <button type="button" class="lang-btn" data-lang="en">EN</button>
+              <button type="button" class="lang-btn" data-lang="de">DE</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1213,21 +1252,21 @@
 
     <section class="hero" id="mood-tracker" aria-labelledby="hero-heading">
       <div>
-        <div class="tag">🔥 Streak Challenge and more</div>
+        <div class="tag" data-i18n="hero.tag">🔥 Streak Challenge and more</div>
 
         <h1 id="hero-heading">
-          <span class="visually-hidden">Happy Pixels – your personal mood tracker. </span>
-          Your Year.<br />
-          Your Mood.<br />
-          <span class="gradient-text">Your Pixels.</span>
+          <span class="visually-hidden" data-i18n="hero.hidden">Happy Pixels – your personal mood tracker. </span>
+          <span data-i18n="hero.line1">Your Year.</span><br />
+          <span data-i18n="hero.line2">Your Mood.</span><br />
+          <span class="gradient-text" data-i18n="hero.line3">Your Pixels.</span>
         </h1>
 
-        <p class="subtitle">
+        <p class="subtitle" data-i18n="hero.subtitle">
           Track your days, build your streak and turn your whole year into a colorful pixel story.
         </p>
 
         <div class="coming-card">
-          <div class="coming-title">Coming soon on</div>
+          <div class="coming-title" data-i18n="hero.comingSoonOn">Coming soon on</div>
 
           <div class="store-row">
             <div class="store-pill">
@@ -1241,13 +1280,13 @@
             </div>
           </div>
 
-          <p class="platform-note">Designed for iOS &amp; Android</p>
+          <p class="platform-note" data-i18n="hero.platformNote">Designed for iOS &amp; Android</p>
         </div>
 
         <section class="early-access-card" id="early-access" aria-labelledby="early-access-heading">
-          <h2 class="early-access-title" id="early-access-heading">Get Early Access to Happy Pixels</h2>
-          <p class="early-access-text">Be one of the first to try Happy Pixels when it launches.</p>
-          <p class="early-access-perk">🎁 First 1,000 members get a special Mystery Gift at launch.</p>
+          <h2 class="early-access-title" id="early-access-heading" data-i18n="earlyAccess.title">Get Early Access to Happy Pixels</h2>
+          <p class="early-access-text" data-i18n="earlyAccess.text">Be one of the first to try Happy Pixels when it launches.</p>
+          <p class="early-access-perk" data-i18n="earlyAccess.perk">🎁 First 1,000 members get a special Mystery Gift at launch.</p>
 
           <form
             class="early-access-form"
@@ -1256,22 +1295,23 @@
             novalidate
           >
             <div class="early-access-fields">
-              <label class="visually-hidden" for="early-access-email">Email address</label>
+              <label class="visually-hidden" for="early-access-email" data-i18n="earlyAccess.emailLabel">Email address</label>
               <input
                 class="early-access-input"
                 type="email"
                 id="early-access-email"
                 name="email"
                 placeholder="Enter your email address"
+                data-i18n-placeholder="earlyAccess.emailPlaceholder"
                 autocomplete="email"
                 inputmode="email"
                 required
               />
-              <button class="early-access-button" type="submit" id="early-access-submit">
+              <button class="early-access-button" type="submit" id="early-access-submit" data-i18n="earlyAccess.submit">
                 Get Early Access
               </button>
             </div>
-            <p class="early-access-notice">
+            <p class="early-access-notice" id="early-access-notice" data-i18n="earlyAccess.notice">
               By joining, you’ll receive updates about Happy Pixels, Early Access, and related offers. No unrelated advertising. You can unsubscribe anytime.
               <a href="/privacy-policy">Privacy Policy</a>
             </p>
@@ -1284,14 +1324,15 @@
         <div
           class="phone"
           role="img"
+          data-i18n-aria="hero.phoneAria"
           aria-label="Happy Pixels app: mood tracker with a year pixel grid, streak, and categories like Mood, Water, and Gym"
         >
           <div class="phone-screen">
             <div class="phone-top">
               <div>
                 <div class="app-logo">HAPPY PIXELS</div>
-                <div class="app-title">Mood Tracker</div>
-                <div class="app-date">Today, one pixel at a time</div>
+                <div class="app-title" data-i18n="phone.title">Mood Tracker</div>
+                <div class="app-date" data-i18n="phone.date">Today, one pixel at a time</div>
               </div>
 
               <div class="app-icons">
@@ -1310,19 +1351,19 @@
                 <div class="add-dot">+</div>
 
                 <div class="mood-dot p3"></div>
-                <div class="mood-label">Good</div>
+                <div class="mood-label" data-i18n="phone.moodGood">Good</div>
 
                 <div class="mood-dot p8"></div>
-                <div class="mood-label">Bad</div>
+                <div class="mood-label" data-i18n="phone.moodBad">Bad</div>
 
                 <div class="mood-dot p1"></div>
-                <div class="mood-label">Best</div>
+                <div class="mood-label" data-i18n="phone.moodBest">Best</div>
 
                 <div class="mood-dot p2"></div>
-                <div class="mood-label">Ok</div>
+                <div class="mood-label" data-i18n="phone.moodOk">Ok</div>
 
                 <div class="mood-dot p4"></div>
-                <div class="mood-label">Cool</div>
+                <div class="mood-label" data-i18n="phone.moodCool">Cool</div>
               </div>
 
               <div class="calendar">
@@ -1351,7 +1392,7 @@
             <div class="stats-card">
               <div>
                 <div class="stats-number">🔥 12</div>
-                <div class="stats-label">days streak</div>
+                <div class="stats-label" data-i18n="phone.daysStreak">days streak</div>
               </div>
 
               <div class="stats-mini">📈</div>
@@ -1360,17 +1401,17 @@
             <div class="mini-tabbar">
               <div class="tab-item active">
                 <div class="tab-emoji">😊</div>
-                <div class="tab-text">Mood</div>
+                <div class="tab-text" data-i18n="phone.tabMood">Mood</div>
               </div>
 
               <div class="tab-item">
                 <div class="tab-emoji">💧</div>
-                <div class="tab-text">Water</div>
+                <div class="tab-text" data-i18n="phone.tabWater">Water</div>
               </div>
 
               <div class="tab-item">
                 <div class="tab-emoji">💪</div>
-                <div class="tab-text">Gym</div>
+                <div class="tab-text" data-i18n="phone.tabGym">Gym</div>
               </div>
             </div>
           </div>
@@ -1379,83 +1420,83 @@
     </section>
 
     <section class="updates" id="features" aria-labelledby="features-heading">
-      <h2 class="section-heading" id="features-heading">Everything in one pixel story.</h2>
-      <p class="section-subtitle">
+      <h2 class="section-heading" id="features-heading" data-i18n="features.heading">Everything in one pixel story.</h2>
+      <p class="section-subtitle" data-i18n="features.subheading">
         Simple, colorful and made for daily progress.
       </p>
 
       <div class="update-grid">
         <div class="update-card">
-          <h3>📅 Track your year</h3>
-          <p>Every day becomes one small colorful pixel.</p>
+          <h3 data-i18n="features.card1.title">📅 Track your year</h3>
+          <p data-i18n="features.card1.text">Every day becomes one small colorful pixel.</p>
         </div>
 
         <div class="update-card">
-          <h3>🔥 Build streaks</h3>
-          <p>Stay consistent and challenge your friends.</p>
+          <h3 data-i18n="features.card2.title">🔥 Build streaks</h3>
+          <p data-i18n="features.card2.text">Stay consistent and challenge your friends.</p>
         </div>
 
         <div class="update-card">
-          <h3>📲 Share progress</h3>
-          <p>Post your streak and stats on social media.</p>
+          <h3 data-i18n="features.card3.title">📲 Share progress</h3>
+          <p data-i18n="features.card3.text">Post your streak and stats on social media.</p>
         </div>
       </div>
     </section>
 
-    <p class="love-note">Built with love, pixel by pixel.</p>
+    <p class="love-note" data-i18n="loveNote">Built with love, pixel by pixel.</p>
 
     <section class="wide-section" id="more" aria-labelledby="more-heading">
-      <h2 class="section-heading" id="more-heading">More than a mood tracker.</h2>
+      <h2 class="section-heading" id="more-heading" data-i18n="more.heading">More than a mood tracker.</h2>
 
       <div class="feature-list">
         <div class="feature-row">
           <div class="feature-icon">🖼️</div>
           <div>
-            <h3>Add pictures</h3>
-            <span>Save memories with your daily pixels and look back at them anytime.</span>
+            <h3 data-i18n="more.item1.title">Add pictures</h3>
+            <span data-i18n="more.item1.text">Save memories with your daily pixels and look back at them anytime.</span>
           </div>
         </div>
 
         <div class="feature-row">
           <div class="feature-icon">⏰</div>
           <div>
-            <h3>Never forget a day</h3>
-            <span>Build your routine and keep your streak alive.</span>
+            <h3 data-i18n="more.item2.title">Never forget a day</h3>
+            <span data-i18n="more.item2.text">Build your routine and keep your streak alive.</span>
           </div>
         </div>
 
         <div class="feature-row">
           <div class="feature-icon">📊</div>
           <div>
-            <h3>Always see your stats</h3>
-            <span>Check your progress, most used moods and yearly overview whenever you want.</span>
+            <h3 data-i18n="more.item3.title">Always see your stats</h3>
+            <span data-i18n="more.item3.text">Check your progress, most used moods and yearly overview whenever you want.</span>
           </div>
         </div>
 
         <div class="feature-row">
           <div class="feature-icon">🎯</div>
           <div>
-            <h3>Create your own categories</h3>
-            <span>Track mood, water, gym, school, habits or anything else.</span>
+            <h3 data-i18n="more.item4.title">Create your own categories</h3>
+            <span data-i18n="more.item4.text">Track mood, water, gym, school, habits or anything else.</span>
           </div>
         </div>
       </div>
     </section>
 
     <footer>
-      © 2026 <a class="footer-home" href="https://happypixels.app/">Happy Pixels</a> · Updates coming soon
+      © 2026 <a class="footer-home" href="https://happypixels.app/">Happy Pixels</a> · <span data-i18n="footer.updates">Updates coming soon</span>
 
       <div class="footer-legal">
-        <a class="footer-privacy" href="/privacy-policy">Privacy Policy</a>
-        <a class="footer-imprint" href="/imprint">Imprint</a>
+        <a class="footer-privacy" href="/privacy-policy" data-i18n="footer.privacy">Privacy Policy</a>
+        <a class="footer-imprint" href="/imprint" data-i18n="footer.imprint">Imprint</a>
       </div>
 
       <div class="footer-socials">
-        <a class="footer-social" href="https://www.tiktok.com/@happy..pixels" target="_blank" rel="noopener noreferrer">
+        <a class="footer-social" href="https://www.tiktok.com/@happy..pixels" target="_blank" rel="noopener noreferrer" data-i18n="footer.tiktok">
           🎵 Follow on TikTok
         </a>
 
-        <a class="footer-social" href="https://www.instagram.com/happy_pixels.app/" target="_blank" rel="noopener noreferrer">
+        <a class="footer-social" href="https://www.instagram.com/happy_pixels.app/" target="_blank" rel="noopener noreferrer" data-i18n="footer.instagram">
           📸 Follow on Instagram
         </a>
       </div>
@@ -1464,6 +1505,183 @@
 
   <script>
     (function () {
+      var I18N = {
+        en: {
+          "header.followTip": "Follow our journey",
+          "header.comingSoon": "Coming Soon",
+          "header.discover": "✨ Discover Happy Pixels",
+          "hero.tag": "🔥 Streak Challenge and more",
+          "hero.hidden": "Happy Pixels – your personal mood tracker. ",
+          "hero.line1": "Your Year.",
+          "hero.line2": "Your Mood.",
+          "hero.line3": "Your Pixels.",
+          "hero.subtitle": "Track your days, build your streak and turn your whole year into a colorful pixel story.",
+          "hero.comingSoonOn": "Coming soon on",
+          "hero.platformNote": "Designed for iOS &amp; Android",
+          "hero.phoneAria": "Happy Pixels app: mood tracker with a year pixel grid, streak, and categories like Mood, Water, and Gym",
+          "earlyAccess.title": "Get Early Access to Happy Pixels",
+          "earlyAccess.text": "Be one of the first to try Happy Pixels when it launches.",
+          "earlyAccess.perk": "🎁 First 1,000 members get a special Mystery Gift at launch.",
+          "earlyAccess.emailLabel": "Email address",
+          "earlyAccess.emailPlaceholder": "Enter your email address",
+          "earlyAccess.submit": "Get Early Access",
+          "earlyAccess.submitting": "Submitting...",
+          "earlyAccess.notice": "By joining, you’ll receive updates about Happy Pixels, Early Access, and related offers. No unrelated advertising. You can unsubscribe anytime. <a href=\"/privacy-policy\">Privacy Policy</a>",
+          "earlyAccess.invalidEmail": "Please enter a valid email address.",
+          "earlyAccess.successFallback": "You're on the list! 🎉 We'll let you know when Happy Pixels launches.",
+          "earlyAccess.errorFallback": "Something went wrong. Please try again in a moment.",
+          "earlyAccess.networkError": "Unable to connect right now. Please try again in a moment.",
+          "phone.title": "Mood Tracker",
+          "phone.date": "Today, one pixel at a time",
+          "phone.moodGood": "Good",
+          "phone.moodBad": "Bad",
+          "phone.moodBest": "Best",
+          "phone.moodOk": "Ok",
+          "phone.moodCool": "Cool",
+          "phone.daysStreak": "days streak",
+          "phone.tabMood": "Mood",
+          "phone.tabWater": "Water",
+          "phone.tabGym": "Gym",
+          "features.heading": "Everything in one pixel story.",
+          "features.subheading": "Simple, colorful and made for daily progress.",
+          "features.card1.title": "📅 Track your year",
+          "features.card1.text": "Every day becomes one small colorful pixel.",
+          "features.card2.title": "🔥 Build streaks",
+          "features.card2.text": "Stay consistent and challenge your friends.",
+          "features.card3.title": "📲 Share progress",
+          "features.card3.text": "Post your streak and stats on social media.",
+          "loveNote": "Built with love, pixel by pixel.",
+          "more.heading": "More than a mood tracker.",
+          "more.item1.title": "Add pictures",
+          "more.item1.text": "Save memories with your daily pixels and look back at them anytime.",
+          "more.item2.title": "Never forget a day",
+          "more.item2.text": "Build your routine and keep your streak alive.",
+          "more.item3.title": "Always see your stats",
+          "more.item3.text": "Check your progress, most used moods and yearly overview whenever you want.",
+          "more.item4.title": "Create your own categories",
+          "more.item4.text": "Track mood, water, gym, school, habits or anything else.",
+          "footer.updates": "Updates coming soon",
+          "footer.privacy": "Privacy Policy",
+          "footer.imprint": "Imprint",
+          "footer.tiktok": "🎵 Follow on TikTok",
+          "footer.instagram": "📸 Follow on Instagram"
+        },
+        de: {
+          "header.followTip": "Folge unserer Reise",
+          "header.comingSoon": "Bald verfügbar",
+          "header.discover": "✨ Happy Pixels entdecken",
+          "hero.tag": "🔥 Streak-Challenge und mehr",
+          "hero.hidden": "Happy Pixels – dein persönlicher Stimmungstracker. ",
+          "hero.line1": "Dein Jahr.",
+          "hero.line2": "Deine Stimmung.",
+          "hero.line3": "Deine Pixel.",
+          "hero.subtitle": "Verfolge deine Tage, baue deinen Streak auf und verwandle dein ganzes Jahr in eine bunte Pixel-Geschichte.",
+          "hero.comingSoonOn": "Bald verfügbar für",
+          "hero.platformNote": "Entwickelt für iOS &amp; Android",
+          "hero.phoneAria": "Happy Pixels App: Stimmungstracker mit Jahres-Pixelraster, Streak und Kategorien wie Stimmung, Wasser und Gym",
+          "earlyAccess.title": "Sichere dir frühen Zugang zu Happy Pixels",
+          "earlyAccess.text": "Sei unter den Ersten, die Happy Pixels beim Launch ausprobieren.",
+          "earlyAccess.perk": "🎁 Die ersten 1.000 Mitglieder erhalten beim Launch ein besonderes Überraschungsgeschenk.",
+          "earlyAccess.emailLabel": "E-Mail-Adresse",
+          "earlyAccess.emailPlaceholder": "Gib deine E-Mail-Adresse ein",
+          "earlyAccess.submit": "Frühen Zugang sichern",
+          "earlyAccess.submitting": "Wird gesendet...",
+          "earlyAccess.notice": "Mit deiner Anmeldung erhältst du Updates zu Happy Pixels, Early Access und passenden Angeboten. Keine themenfremde Werbung. Du kannst dich jederzeit wieder abmelden. <a href=\"/privacy-policy\">Datenschutzerklärung</a>",
+          "earlyAccess.invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
+          "earlyAccess.successFallback": "Du stehst auf der Liste! 🎉 Wir sagen dir Bescheid, sobald Happy Pixels startet.",
+          "earlyAccess.errorFallback": "Etwas ist schiefgelaufen. Bitte versuch es gleich noch einmal.",
+          "earlyAccess.networkError": "Verbindung momentan nicht möglich. Bitte versuch es gleich noch einmal.",
+          "phone.title": "Stimmungstracker",
+          "phone.date": "Heute, ein Pixel nach dem anderen",
+          "phone.moodGood": "Gut",
+          "phone.moodBad": "Schlecht",
+          "phone.moodBest": "Bester",
+          "phone.moodOk": "Ok",
+          "phone.moodCool": "Cool",
+          "phone.daysStreak": "Tage Streak",
+          "phone.tabMood": "Stimmung",
+          "phone.tabWater": "Wasser",
+          "phone.tabGym": "Gym",
+          "features.heading": "Alles in einer Pixel-Geschichte.",
+          "features.subheading": "Einfach, bunt und gemacht für täglichen Fortschritt.",
+          "features.card1.title": "📅 Verfolge dein Jahr",
+          "features.card1.text": "Jeder Tag wird zu einem kleinen, bunten Pixel.",
+          "features.card2.title": "🔥 Baue Streaks auf",
+          "features.card2.text": "Bleib konsequent und fordere deine Freunde heraus.",
+          "features.card3.title": "📲 Teile deinen Fortschritt",
+          "features.card3.text": "Poste deinen Streak und deine Statistiken in den sozialen Medien.",
+          "loveNote": "Mit Liebe gebaut, Pixel für Pixel.",
+          "more.heading": "Mehr als nur ein Stimmungstracker.",
+          "more.item1.title": "Fotos hinzufügen",
+          "more.item1.text": "Halte Erinnerungen mit deinen täglichen Pixeln fest und sieh sie dir jederzeit wieder an.",
+          "more.item2.title": "Keinen Tag mehr vergessen",
+          "more.item2.text": "Baue deine Routine auf und halte deinen Streak am Leben.",
+          "more.item3.title": "Behalte deine Statistiken im Blick",
+          "more.item3.text": "Sieh dir deinen Fortschritt, deine häufigsten Stimmungen und die Jahresübersicht an, wann immer du willst.",
+          "more.item4.title": "Erstelle deine eigenen Kategorien",
+          "more.item4.text": "Verfolge Stimmung, Wasser, Gym, Schule, Gewohnheiten oder alles andere.",
+          "footer.updates": "Updates folgen bald",
+          "footer.privacy": "Datenschutzerklärung",
+          "footer.imprint": "Impressum",
+          "footer.tiktok": "🎵 Folge uns auf TikTok",
+          "footer.instagram": "📸 Folge uns auf Instagram"
+        }
+      };
+
+      var STORAGE_KEY = "hp_lang";
+      var currentLang = "en";
+
+      function detectInitialLang() {
+        try {
+          var saved = localStorage.getItem(STORAGE_KEY);
+          if (saved === "en" || saved === "de") return saved;
+        } catch (e) {}
+        var nav = (navigator.language || "en").toLowerCase();
+        return nav.indexOf("de") === 0 ? "de" : "en";
+      }
+
+      function applyLanguage(lang) {
+        if (!I18N[lang]) lang = "en";
+        currentLang = lang;
+        var dict = I18N[lang];
+
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (dict[key] !== undefined) el.innerHTML = dict[key];
+        });
+
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n-placeholder");
+          if (dict[key] !== undefined) el.setAttribute("placeholder", dict[key]);
+        });
+
+        document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n-aria");
+          if (dict[key] !== undefined) el.setAttribute("aria-label", dict[key]);
+        });
+
+        document.querySelectorAll(".lang-btn").forEach(function (btn) {
+          var isActive = btn.getAttribute("data-lang") === lang;
+          btn.classList.toggle("is-active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+
+        document.documentElement.setAttribute("lang", lang);
+
+        try {
+          localStorage.setItem(STORAGE_KEY, lang);
+        } catch (e) {}
+      }
+
+      document.querySelectorAll(".lang-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyLanguage(btn.getAttribute("data-lang"));
+        });
+      });
+
+      applyLanguage(detectInitialLang());
+
+      // ---- early-access form (unchanged behaviour, now language-aware) ----
       var form = document.getElementById("early-access-form");
       if (!form) return;
 
@@ -1472,6 +1690,10 @@
       var message = document.getElementById("early-access-message");
       var endpoint = form.getAttribute("data-endpoint") || "/api/early-access";
       var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function t(key) {
+        return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key];
+      }
 
       function setMessage(text, type) {
         message.hidden = false;
@@ -1488,7 +1710,7 @@
       function setSubmitting(isSubmitting) {
         submitButton.disabled = isSubmitting;
         emailInput.disabled = isSubmitting;
-        submitButton.textContent = isSubmitting ? "Submitting..." : "Get Early Access";
+        submitButton.textContent = isSubmitting ? t("earlyAccess.submitting") : t("earlyAccess.submit");
       }
 
       form.addEventListener("submit", function (event) {
@@ -1497,7 +1719,7 @@
 
         var email = emailInput.value.trim();
         if (!email || !emailPattern.test(email)) {
-          setMessage("Please enter a valid email address.", "error");
+          setMessage(t("earlyAccess.invalidEmail"), "error");
           emailInput.focus();
           return;
         }
@@ -1516,18 +1738,18 @@
               if (response.ok && data && data.success) {
                 form.reset();
                 form.querySelector(".early-access-fields").hidden = true;
-                setMessage(data.message || "You're on the list! 🎉 We'll let you know when Happy Pixels launches.", "success");
+                setMessage(data.message || t("earlyAccess.successFallback"), "success");
                 return;
               }
 
               var errorText = (data && (data.error || data.message))
                 ? (data.error || data.message)
-                : "Something went wrong. Please try again in a moment.";
+                : t("earlyAccess.errorFallback");
               setMessage(errorText, "error");
             });
           })
           .catch(function () {
-            setMessage("Unable to connect right now. Please try again in a moment.", "error");
+            setMessage(t("earlyAccess.networkError"), "error");
           })
           .finally(function () {
             setSubmitting(false);
