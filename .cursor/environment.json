@@ -1,0 +1,20 @@
+{
+  "name": "Happy Pixels",
+  "install": "npx --yes wrangler@4 --version",
+  "terminals": [
+    {
+      "name": "static-site",
+      "command": "python3 -m http.server 8000",
+      "description": "Serves the Happy Pixels static landing page (index.html, /imprint, /privacy-policy) at http://localhost:8000, mirroring GitHub Pages."
+    },
+    {
+      "name": "worker-dev",
+      "command": "cd workers && npx --yes wrangler@4 dev early-access.js --name happy-pixels-early-access --compatibility-date 2024-01-01 --port 8787 --ip 127.0.0.1",
+      "description": "Runs the early-access Cloudflare Worker locally at http://localhost:8787. Set BREVO_API_KEY and BREVO_LIST_ID (e.g. via `wrangler secret put`) to enable real Brevo signups; without them it responds 503 'Signup is not configured yet.'"
+    }
+  ],
+  "ports": [
+    { "name": "static-site", "port": 8000 },
+    { "name": "worker-dev", "port": 8787 }
+  ]
+}
