@@ -188,6 +188,25 @@
       text-decoration: none;
     }
 
+    .story-pill {
+      color: #ffffff;
+      background: linear-gradient(90deg, #ff2d55, #ff9500, #af52de);
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 12px 30px rgba(255,45,85,0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .story-pill:hover,
+    .story-pill:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 38px rgba(255,45,85,0.3);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .story-pill { transition: none; }
+      .story-pill:hover, .story-pill:focus-visible { transform: none; }
+    }
+
     .social-pill {
       color: #11111a;
       display: inline-flex;
@@ -1186,6 +1205,7 @@
             </div>
 
             <div class="nav-pill">Coming Soon</div>
+            <a class="nav-pill story-pill" href="/story/">✨ Discover Happy Pixels</a>
           </div>
         </div>
       </div>

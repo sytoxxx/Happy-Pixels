@@ -1,0 +1,2926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Pixels — Your Life, One Pixel at a Time</title>
+  <meta name="description" content="One day becomes one pixel. Pixels become a year. Years become a life. This is the story of Happy Pixels — and the idea behind it." />
+  <meta name="author" content="Happy Pixels" />
+  <meta name="theme-color" content="#0b0b10" />
+  <link rel="canonical" href="https://happypixels.app/story/" />
+  <link rel="alternate" hreflang="en" href="https://happypixels.app/story/" />
+  <link rel="alternate" hreflang="x-default" href="https://happypixels.app/story/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Happy Pixels" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://happypixels.app/story/" />
+  <meta property="og:title" content="Happy Pixels — Your Life, One Pixel at a Time" />
+  <meta property="og:description" content="One day becomes one pixel. Pixels become a year. Years become a life. This is the story of Happy Pixels." />
+  <meta property="og:image" content="https://happypixels.app/og-image.png" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:alt" content="Happy Pixels App Icon" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Happy Pixels — Your Life, One Pixel at a Time" />
+  <meta name="twitter:description" content="One day becomes one pixel. Pixels become a year. Years become a life." />
+  <meta name="twitter:image" content="https://happypixels.app/og-image.png" />
+
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+
+  <style>
+    /* ============================================================
+       TOKENS
+       ============================================================ */
+    :root {
+      --ink: #11111a;
+      --muted: #6f6f7a;
+      --muted-2: #8e8e99;
+      --muted-3: #9b9ba5;
+
+      --bg-dark: #0a0a0f;
+      --bg-light-1: #fbfafd;
+      --bg-light-2: #f4f3f9;
+
+      --pink: #ff2d55;
+      --orange: #ff9500;
+      --yellow: #ffcc00;
+      --green: #34c759;
+      --teal: #00c7be;
+      --blue: #007aff;
+      --purple: #af52de;
+
+      /* real per-day pixel palette, same values as happypixels.app */
+      --p1: #ff2d55;
+      --p2: #ffd600;
+      --p3: #69f0ae;
+      --p4: #2979ff;
+      --p5: #ff9500;
+      --p6: #af52de;
+      --p7: #00c853;
+      --p8: #ff3b30;
+
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+      --r-pill: 999px;
+      --r-card: 32px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    html {
+      background: var(--bg-dark);
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: #fff;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    section {
+      position: relative;
+      width: 100%;
+    }
+
+    /* ============================================================
+       CHROME — back link + progress rail (auto-contrast via blend)
+       ============================================================ */
+    .progress-rail {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      z-index: 60;
+      background: transparent;
+    }
+
+    .progress-rail-fill {
+      height: 100%;
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: left center;
+      background: linear-gradient(90deg, var(--pink), var(--orange), var(--yellow), var(--green), var(--teal), var(--blue), var(--purple));
+      will-change: transform;
+    }
+
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 24px;
+      color: #fff;
+      mix-blend-mode: difference;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+    }
+
+    .nav-bar.is-visible {
+      opacity: 0.92;
+      transform: translateY(0);
+    }
+
+    .nav-home {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: inherit;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: inherit;
+      opacity: 0.85;
+      transition: opacity 160ms ease-out;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      opacity: 1;
+    }
+
+    .nav-lang {
+      display: flex;
+      gap: 2px;
+      flex-shrink: 0;
+      border: 1px solid currentColor;
+      border-radius: var(--r-pill);
+      padding: 2px;
+    }
+
+    .nav-lang-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      padding: 5px 11px;
+      border-radius: var(--r-pill);
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 160ms ease-out, background 160ms ease-out;
+    }
+
+    /* isolate so the active pill reads as a clean solid chip, independent
+       of the nav's own difference-blend against the page behind it */
+    .nav-lang-btn.is-active {
+      opacity: 1;
+      isolation: isolate;
+      background: #ffffff;
+      color: #11111a;
+      mix-blend-mode: normal;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .nav-lang-btn:hover { opacity: 0.85; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .nav-bar { transition: opacity 220ms ease; }
+      .nav-links a, .nav-lang-btn { transition: none; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-bar { padding: 14px 16px; gap: 10px; }
+      .nav-home { font-size: 12px; }
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: 11.5px; }
+    }
+
+    @media (max-width: 460px) {
+      .nav-links { display: none; }
+    }
+
+    /* ============================================================
+       SHARED TYPE + UTILITIES
+       ============================================================ */
+    .stage {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px;
+    }
+
+    .stage-tight {
+      min-height: 52vh;
+      padding: 40px 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted-2);
+      margin-bottom: 22px;
+    }
+
+    .headline-xl {
+      font-size: clamp(38px, 7vw, 84px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      font-weight: 950;
+      max-width: 15ch;
+    }
+
+    .headline-lg {
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-weight: 900;
+      max-width: 16ch;
+    }
+
+    .headline-md {
+      font-size: clamp(22px, 3.4vw, 36px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      font-weight: 850;
+      max-width: 20ch;
+    }
+
+    .lede {
+      font-size: clamp(16px, 2vw, 21px);
+      line-height: 1.5;
+      font-weight: 650;
+      color: var(--muted-2);
+      max-width: 34ch;
+      margin-top: 18px;
+    }
+
+    .lede.on-light { color: var(--muted); }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--pink), var(--orange), var(--yellow), var(--green), var(--teal), var(--blue), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .auto-contrast {
+      color: #fff;
+      mix-blend-mode: difference;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(28px, 8vh, 96px);
+    }
+
+    /* scroll-reveal utility: transform/opacity only, ease-out, never scale(0) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      transition: opacity 520ms var(--ease-out), transform 520ms var(--ease-out);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        transform: none;
+        transition: opacity 220ms ease;
+      }
+      .reveal.is-visible { transform: none; }
+    }
+
+    /* ============================================================
+       1 — OPENING
+       ============================================================ */
+    #opening {
+      background: var(--bg-dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pixel-genesis {
+      position: relative;
+      width: min(560px, 88vw);
+      height: min(300px, 40vh);
+      margin-bottom: 44px;
+    }
+
+    .genesis-pixel {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: scale(0.85);
+      animation: pixel-in 620ms var(--ease-out) forwards;
+    }
+
+    @keyframes pixel-in {
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .genesis-pixel { animation-duration: 1ms; animation-delay: 0ms !important; }
+    }
+
+    .opening-word {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+    }
+
+    .opening-word.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .opening-logo {
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 950;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .opening-tagline {
+      font-size: clamp(16px, 2.4vw, 24px);
+      font-weight: 700;
+      color: rgba(255,255,255,0.62);
+      letter-spacing: -0.01em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 700ms var(--ease-out) 1400ms;
+    }
+
+    .scroll-hint.is-visible { opacity: 0.55; }
+
+    .scroll-hint-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .scroll-chevron {
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid #fff;
+      border-bottom: 1.5px solid #fff;
+      transform: rotate(45deg);
+      animation: chevron-float 2.2s ease-in-out infinite;
+    }
+
+    @keyframes chevron-float {
+      0%, 100% { transform: rotate(45deg) translate(0, 0); }
+      50% { transform: rotate(45deg) translate(3px, 3px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-chevron { animation: none; }
+    }
+
+    /* ============================================================
+       2 — THE QUESTION  (dark → light transition zone)
+       ============================================================ */
+    #question {
+      background: var(--bg-dark);
+      padding-top: 0;
+    }
+
+    .bg-transition-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, var(--bg-light-1) 0%, var(--bg-light-2) 100%);
+      opacity: 0;
+      pointer-events: none;
+      will-change: opacity;
+    }
+
+    .question-line {
+      position: relative;
+      z-index: 1;
+      padding: 8vh 24px;
+    }
+
+    .question-line .headline-lg,
+    .question-line .headline-md {
+      margin: 0 auto;
+    }
+
+    /* ============================================================
+       3 — THE IDEA (fully light from here on)
+       ============================================================ */
+    #idea {
+      background: linear-gradient(180deg, var(--bg-light-2) 0%, var(--bg-light-1) 60%);
+      color: var(--ink);
+    }
+
+    #idea .lede { color: var(--muted); }
+
+    .idea-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .idea-mark img {
+      width: 56px;
+      height: 56px;
+    }
+
+    .idea-mark-text {
+      font-size: clamp(24px, 3.6vw, 34px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    /* ---- 3B: not-a-diary ---- */
+    #not-a-diary { background: var(--bg-light-2); color: var(--ink); }
+
+    .diary-compare {
+      display: flex;
+      gap: 60px;
+      margin-top: 44px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .diary-col {
+      text-align: left;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .diary-col p { font-size: 19px; font-weight: 800; margin: 0; }
+
+    .diary-col-label {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted-3);
+      margin-bottom: 4px;
+    }
+
+    .diary-col-label--accent { color: var(--pink); }
+    .diary-col--old p { color: var(--muted); }
+    .diary-col-muted { color: var(--muted-3) !important; font-weight: 650 !important; font-size: 15px !important; }
+    .diary-col--new p { color: var(--ink); }
+    .diary-col-strong { color: var(--pink) !important; font-size: 20px !important; }
+
+    @media (max-width: 620px) {
+      .diary-compare { flex-direction: column; align-items: center; text-align: center; gap: 34px; }
+      .diary-col { text-align: center; }
+    }
+
+    /* ---- 4B: why the pixel matters ---- */
+    #pixel-matters { background: var(--bg-light-1); color: var(--ink); }
+
+    .matters-lines {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-top: 22px;
+      max-width: 28ch;
+      text-align: center;
+    }
+
+    .matters-line {
+      font-size: clamp(20px, 3.6vw, 36px);
+      font-weight: 850;
+      letter-spacing: -0.01em;
+    }
+
+    .matters-line--muted { color: var(--muted); font-weight: 700; }
+    .matters-lines .matters-line:last-child { color: var(--ink); font-weight: 950; }
+
+    /* ---- 6B: Birgit example ---- */
+    #example-birgit { background: var(--bg-light-1); color: var(--ink); }
+
+    .beat-lines {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .beat-line {
+      font-size: clamp(19px, 3.2vw, 30px);
+      font-weight: 850;
+      letter-spacing: -0.01em;
+    }
+
+    .beat-line--muted { color: var(--muted); }
+    .beat-line--accent { color: var(--pink); font-weight: 950; }
+    .beat-pause { height: 36px; }
+
+    /* ---- 6C: more than perfect days ---- */
+    #more-than-perfect { background: var(--bg-light-2); color: var(--ink); }
+
+    .people-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 36px;
+      max-width: 560px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .people-row {
+      font-size: clamp(16px, 2.4vw, 19px);
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .people-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .people-footnote {
+      margin-top: 22px;
+      font-size: 12px;
+      font-weight: 650;
+      color: var(--muted-3);
+    }
+
+    /* ---- 6D: try it yourself (interactive, nothing persisted) ---- */
+    #try-it { background: var(--bg-light-1); color: var(--ink); }
+
+    .try-card {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 460px;
+      padding: 40px 32px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .try-label {
+      font-size: 17px;
+      font-weight: 850;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .try-greeting {
+      font-size: 22px;
+      font-weight: 950;
+      color: var(--pink);
+      margin-bottom: 10px;
+    }
+
+    .try-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+      width: 100%;
+    }
+
+    .try-input {
+      flex: 1;
+      min-width: 160px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1.5px solid #ececf2;
+      background: #fff;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+    }
+
+    .try-input:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(255,45,85,0.12);
+    }
+
+    .try-button {
+      padding: 14px 22px;
+      border: 0;
+      border-radius: 16px;
+      background: var(--pink);
+      color: #fff;
+      font: inherit;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 140ms var(--ease-out), opacity 140ms var(--ease-out);
+    }
+
+    .try-button:active { transform: scale(0.96); }
+    .try-button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .mood-pick-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .mood-pick {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background: #fff;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.06);
+      font: inherit;
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 160ms var(--ease-out), border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .mood-pick:hover { transform: translateY(-2px); }
+    }
+
+    .mood-pick.is-selected {
+      box-shadow: 0 14px 32px rgba(0,0,0,0.14);
+    }
+
+    .try-pixel-field {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 5px;
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto 26px;
+    }
+
+    .try-pixel-field .cell {
+      aspect-ratio: 1;
+      border-radius: 5px;
+      background: #e4e3ee;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+    }
+
+    .try-pixel-field .cell.is-in {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .try-reveal-line {
+      font-size: clamp(19px, 3.2vw, 28px);
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+      margin-bottom: 6px;
+    }
+
+    .try-reveal-line.is-visible { opacity: 1; transform: translateY(0); }
+
+    .try-reveal-line--accent {
+      background: linear-gradient(90deg, var(--pink), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .try-restart {
+      margin-top: 22px;
+      background: none;
+      border: 0;
+      font: inherit;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .coming-soon-strip {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .coming-soon-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .coming-soon-pills {
+      display: flex;
+      gap: 12px;
+    }
+
+    .coming-soon-pill {
+      padding: 12px 20px;
+      border-radius: 18px;
+      background: #11111a;
+      color: #fff;
+      font-weight: 900;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .coming-soon-pill--light {
+      background: #fff;
+      color: #11111a;
+      border: 1px solid #ececf2;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .try-pixel-field .cell,
+      .try-reveal-line,
+      .mood-pick { transition-duration: 1ms; }
+    }
+
+    /* ---- 10B: recap ---- */
+    #recap { background: var(--bg-dark); color: #fff; }
+
+    .recap-lines {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .recap-line {
+      font-size: clamp(32px, 7vw, 60px);
+      font-weight: 950;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    .recap-line--accent {
+      background: linear-gradient(90deg, var(--pink), var(--orange), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* ============================================================
+       LIGHT SECTIONS (shared from here down)
+       ============================================================ */
+    .light {
+      background: var(--bg-light-1);
+      color: var(--ink);
+    }
+
+    .light-alt {
+      background: var(--bg-light-2);
+      color: var(--ink);
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.9);
+      border-radius: var(--r-card);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.08);
+      backdrop-filter: blur(18px);
+    }
+
+    /* ============================================================
+       4 — PRODUCT REVEAL
+       ============================================================ */
+    #product { background: var(--bg-light-1); color: var(--ink); }
+
+    .phone-stage {
+      position: relative;
+      margin-top: 54px;
+      perspective: 1600px;
+    }
+
+    /* ---- realistic device frame: fixed real-iPhone aspect ratio,
+       concentric screen corners, dynamic island, metal-edge highlight ---- */
+    .phone {
+      position: relative;
+      width: min(272px, 74vw);
+      aspect-ratio: 390 / 844;
+      border-radius: 15.5% / 7.2%;
+      background: linear-gradient(155deg, #3a3a40 0%, #111116 22%, #0a0a0d 78%, #232328 100%);
+      padding: 3.4% 3.1%;
+      box-shadow:
+        0 50px 120px rgba(0,0,0,0.32),
+        0 8px 30px rgba(0,0,0,0.2),
+        inset 0 0 0 1px rgba(255,255,255,0.06),
+        inset 0 1.5px 0 rgba(255,255,255,0.22);
+      transform: perspective(1400px) rotateY(0deg) rotateX(0deg) scale(1);
+      transform-style: preserve-3d;
+      transition: transform 700ms var(--ease-out);
+    }
+
+    .phone-lg {
+      width: min(300px, 80vw);
+      will-change: transform;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* secondary phone peeking from behind the hero — adds depth without
+       a full multi-phone choreography */
+    .phone-bg {
+      position: absolute;
+      top: 6%;
+      right: 4%;
+      width: min(190px, 50vw);
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(18px) scale(0.94) rotate(6deg);
+      filter: saturate(0.85) brightness(0.97);
+      transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+    }
+
+    .phone-bg.is-visible {
+      opacity: 0.85;
+      transform: translateY(0) scale(0.94) rotate(6deg);
+    }
+
+    @media (max-width: 620px) {
+      .phone-bg { display: none; }
+    }
+
+    /* -------- pixel → phone morph (hero only): a day becomes the product -------- */
+    #heroPhone {
+      background: var(--p1);
+      border-radius: 32%;
+      opacity: 0;
+      transform: perspective(1600px) rotateY(-24deg) rotateX(7deg) scale(0.16);
+      transition:
+        transform 950ms var(--ease-out),
+        border-radius 950ms var(--ease-out),
+        background-color 950ms var(--ease-out),
+        opacity 450ms var(--ease-out);
+    }
+
+    #heroPhone.is-active {
+      background-color: #111116;
+      border-radius: 15.5% / 7.2%;
+      opacity: 1;
+      transform: perspective(1600px) rotateY(0deg) rotateX(0deg) scale(1);
+    }
+
+    #heroPhone .phone-screen--image img {
+      opacity: 0;
+      transition: opacity 600ms var(--ease-out) 550ms;
+    }
+
+    #heroPhone.is-active .phone-screen--image img {
+      opacity: 1;
+    }
+
+    #heroPhone .dynamic-island {
+      opacity: 0;
+      transition: opacity 400ms var(--ease-out) 700ms;
+    }
+
+    #heroPhone.is-active .dynamic-island {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #heroPhone,
+      #heroPhone .phone-screen--image img,
+      #heroPhone .dynamic-island {
+        transition-duration: 1ms;
+        transition-delay: 0ms;
+      }
+    }
+
+    .phone .dynamic-island {
+      position: absolute;
+      top: 3.6%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28%;
+      height: 3.5%;
+      min-height: 15px;
+      background: #000;
+      border-radius: 999px;
+      z-index: 3;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: 12.5% / 5.8%;
+      background: linear-gradient(180deg, #fbfafd, #f2f1f8);
+      padding: 26px 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* real device screenshot — always shown in full, never cropped */
+    .phone-screen--image {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .phone-screen--image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
+    }
+
+    /* some real screenshots have a lot of trailing white space below the
+       fold — cover+top shows the actual content instead of empty page */
+    .phone-screen--image.is-cover img {
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .app-logo {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 3.5px;
+      color: var(--pink);
+      margin-bottom: 9px;
+    }
+
+    .app-title {
+      font-size: 33px;
+      font-weight: 950;
+      letter-spacing: -1.4px;
+      color: var(--pink);
+      margin-bottom: 4px;
+    }
+
+    .app-date {
+      color: var(--muted-2);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .app-icons { display: flex; gap: 8px; align-items: center; padding-top: 3px; }
+
+    .app-icon-pill {
+      width: 40px; height: 40px; border-radius: 20px;
+      background: #ffffff; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.06); font-weight: 900;
+    }
+
+    .streak-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #ffffff; border-radius: var(--r-pill); padding: 9px 13px; margin-bottom: 15px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.07); font-weight: 950; color: #ff5a00;
+    }
+
+    .calendar-wrap { display: flex; gap: 9px; align-items: flex-start; }
+
+    .mood-side { width: 50px; display: flex; flex-direction: column; gap: 15px; align-items: center; padding-top: 3px; }
+
+    .add-dot {
+      width: 38px; height: 38px; border-radius: 19px; background: var(--pink); color: #fff;
+      display: flex; justify-content: center; align-items: center; font-size: 26px; font-weight: 300;
+      box-shadow: 0 12px 25px rgba(255,45,85,0.25);
+    }
+
+    .mood-dot { width: 22px; height: 22px; border-radius: 50%; box-shadow: 0 7px 14px rgba(0,0,0,0.08); }
+    .mood-label { font-size: 9px; font-weight: 900; color: var(--ink); text-align: center; margin-top: -8px; max-width: 48px; }
+
+    .calendar { flex: 1; }
+
+    .month-row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin-bottom: 7px; }
+    .month-row span { font-size: 9px; font-weight: 900; color: var(--muted-3); text-align: center; }
+
+    .pixel-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; }
+    .pixel { aspect-ratio: 1; border-radius: 5px; background: #eeeef5; }
+
+    .stats-card {
+      position: absolute; left: 20px; right: 20px; bottom: 112px;
+      background: #ffffff; border-radius: 27px; padding: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.11);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .stats-number { font-size: 42px; font-weight: 950; color: #ff5a00; letter-spacing: -1px; }
+    .stats-label { color: var(--muted-2); font-weight: 900; font-size: 13px; }
+    .stats-mini { width: 46px; height: 46px; border-radius: 18px; background: var(--bg-light-2); display: flex; align-items: center; justify-content: center; font-size: 23px; }
+
+    .mini-tabbar {
+      position: absolute; left: 18px; right: 18px; bottom: 19px; height: 80px;
+      border-radius: 30px; background: #ffffff; box-shadow: 0 18px 45px rgba(0,0,0,0.11);
+      display: flex; justify-content: space-around; align-items: center; padding: 0 12px;
+    }
+
+    .tab-item { text-align: center; min-width: 64px; }
+    .tab-emoji { font-size: 23px; margin-bottom: 3px; }
+    .tab-text { font-size: 9px; font-weight: 900; color: var(--muted-2); }
+    .tab-item.active .tab-text { color: var(--pink); }
+
+    .floating-chip {
+      position: absolute;
+      background: #fff;
+      border-radius: var(--r-pill);
+      padding: 12px 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+      font-weight: 900;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(10px) scale(0.95);
+      transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+    }
+
+    .floating-chip.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    .chip-streak { top: 8%; left: -4%; color: #ff5a00; }
+    .chip-mood { bottom: 14%; right: -6%; color: var(--pink); }
+
+    @media (max-width: 720px) {
+      .floating-chip { display: none; }
+    }
+
+    /* ============================================================
+       5 — YEAR IN PIXELS (pinned scrollytelling)
+       ============================================================ */
+    #year-in-pixels {
+      background: var(--bg-light-2);
+      color: var(--ink);
+      height: 420vh;
+    }
+
+    .year-stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .year-label-wrap {
+      position: relative;
+      height: 1.1em;
+      margin-bottom: 30px;
+    }
+
+    .year-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(28px, 5.4vw, 52px);
+      font-weight: 950;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transition: opacity 380ms var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .year-stage[data-stage="0"] .year-label[data-for="0"],
+    .year-stage[data-stage="1"] .year-label[data-for="1"],
+    .year-stage[data-stage="2"] .year-label[data-for="2"],
+    .year-stage[data-stage="3"] .year-label[data-for="3"] {
+      opacity: 1;
+    }
+
+    .year-caption {
+      font-size: clamp(14px, 1.8vw, 18px);
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* fixed-size stage: never reflows column count, so total layout
+       height stays constant across stages — only opacity/scale/a
+       standalone hero pixel change. */
+    .year-visual {
+      position: relative;
+      width: min(480px, 88vw);
+      will-change: transform;
+    }
+
+    .year-hero-pixel {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 32px;
+      background: var(--p1);
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 380ms var(--ease-out), transform 380ms var(--ease-out);
+    }
+
+    .year-stage[data-stage="0"] .year-hero-pixel {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .year-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 6px;
+      width: 100%;
+      opacity: 1;
+      transition: opacity 380ms var(--ease-out);
+    }
+
+    .year-stage[data-stage="0"] .year-grid {
+      opacity: 0;
+    }
+
+    .year-cell {
+      aspect-ratio: 1;
+      border-radius: 5px;
+      background: #e4e3ee;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 340ms var(--ease-out), transform 340ms var(--ease-out);
+    }
+
+    .year-stage[data-stage="1"] .year-cell.week-cell,
+    .year-stage[data-stage="2"] .year-cell.month-cell,
+    .year-stage[data-stage="3"] .year-cell {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .year-cell, .year-label, .year-hero-pixel, .year-grid { transition-duration: 1ms; }
+    }
+
+    /* ============================================================
+       6 — MEMORIES
+       ============================================================ */
+    #memories { background: var(--bg-light-1); color: var(--ink); }
+
+    .memory-day {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 38px;
+    }
+
+    .memory-pixel {
+      width: 30px; height: 30px; border-radius: 9px; background: var(--pink);
+      box-shadow: 0 10px 26px rgba(255,45,85,0.28);
+    }
+
+    .memory-arrow { color: var(--muted-3); font-size: 22px; font-weight: 900; }
+
+    .memory-showcase {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 54px;
+      max-width: 1040px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .mini-showcase-phone {
+      width: min(230px, 68vw);
+      flex-shrink: 0;
+    }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .memory-chip {
+      border-radius: 26px;
+      padding: 22px 16px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .memory-chip-icon {
+      width: 42px; height: 42px; border-radius: 16px;
+      background: var(--bg-light-2);
+      display: flex; align-items: center; justify-content: center; font-size: 21px;
+    }
+
+    .memory-chip h3 { font-size: 16px; font-weight: 850; letter-spacing: -0.01em; }
+    .memory-chip p { font-size: 13px; font-weight: 650; color: var(--muted); line-height: 1.4; }
+
+    @media (max-width: 760px) {
+      .memory-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ============================================================
+       7 — FEATURES (varied rhythm)
+       ============================================================ */
+    #feat-streaks { background: linear-gradient(180deg, #fff4ec 0%, var(--bg-light-1) 100%); color: var(--ink); }
+
+    .streak-hero-number {
+      font-size: clamp(90px, 18vw, 190px);
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      color: #ff5a00;
+      line-height: 1;
+    }
+
+    .streak-hero-flame { font-size: clamp(36px, 6vw, 64px); }
+
+    #feat-stats { background: var(--bg-light-2); color: var(--ink); }
+
+    .stats-split,
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 980px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .stats-split .headline-md,
+    .split-layout .headline-md { max-width: none; }
+
+    .split-layout .mini-showcase-phone {
+      justify-self: center;
+    }
+
+    .mini-chart {
+      border-radius: var(--r-card);
+      padding: 30px;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 220px;
+    }
+
+    .mini-bar {
+      flex: 1;
+      border-radius: 10px 10px 4px 4px;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 640ms var(--ease-out);
+    }
+
+    .mini-bar.is-visible { transform: scaleY(1); }
+
+    @media (max-width: 820px) {
+      .stats-split,
+      .split-layout { grid-template-columns: 1fr; gap: 34px; text-align: center; }
+      .stats-split > div:first-child,
+      .split-layout > div:first-child { order: 1; }
+    }
+
+    #feat-custom { background: var(--bg-light-1); color: var(--ink); }
+
+    .category-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 720px;
+      margin-top: 34px;
+    }
+
+    .category-pill {
+      padding: 12px 20px;
+      border-radius: var(--r-pill);
+      background: #fff;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.07);
+      font-weight: 850;
+      font-size: 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 46px;
+      max-width: 760px;
+    }
+
+    .badge-card {
+      width: 150px;
+      border-radius: 24px;
+      padding: 18px 14px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    }
+
+    .badge-card .icon { font-size: 26px; margin-bottom: 8px; }
+    .badge-card h4 { font-size: 13px; font-weight: 850; margin-bottom: 4px; }
+    .badge-card p { font-size: 11px; font-weight: 650; color: var(--muted); line-height: 1.35; }
+
+    /* ============================================================
+       8 — TWO FRIENDS / STORY TIMELINE
+       ============================================================ */
+    #story-timeline { background: var(--ink); color: #fff; }
+
+    #story-timeline .lede { color: rgba(255,255,255,0.55); }
+
+    .timeline {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-top: 64px;
+      max-width: 980px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .timeline-step {
+      flex: 1;
+      min-width: 150px;
+      position: relative;
+      padding: 0 18px;
+      text-align: center;
+    }
+
+    .timeline-num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px;
+      margin: 0 auto 16px;
+      background: var(--ink);
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: -50%;
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.18);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 800ms var(--ease-out) 250ms;
+    }
+
+    .timeline.is-visible .timeline-step::before {
+      transform: scaleX(1);
+    }
+
+    .timeline-num {
+      transform: scale(0.5);
+      opacity: 0;
+      transition: transform 420ms var(--ease-out), opacity 420ms var(--ease-out);
+    }
+
+    .timeline.is-visible .timeline-num {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .timeline-step:first-child::before { display: none; }
+
+    .timeline-step h3 {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .timeline-step p {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 760px) {
+      .timeline { flex-direction: column; gap: 34px; }
+      .timeline-step::before { display: none; }
+    }
+
+    /* ============================================================
+       9 — TODAY
+       ============================================================ */
+    #today { background: var(--bg-light-1); color: var(--ink); }
+
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(255,45,85,0.08);
+      color: var(--pink);
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .mini-phone-row {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+    }
+
+    .mini-phone {
+      position: relative;
+      width: 140px;
+      aspect-ratio: 390 / 844;
+      border-radius: 15.5% / 7.2%;
+      background: linear-gradient(155deg, #3a3a40 0%, #111116 22%, #0a0a0d 78%, #232328 100%);
+      padding: 3.4% 3.1%;
+      box-shadow:
+        0 30px 70px rgba(0,0,0,0.22),
+        inset 0 0 0 1px rgba(255,255,255,0.06),
+        inset 0 1.5px 0 rgba(255,255,255,0.2);
+    }
+
+    .mini-phone .dynamic-island {
+      position: absolute;
+      top: 3.6%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30%;
+      height: 3.2%;
+      min-height: 8px;
+      background: #000;
+      border-radius: 999px;
+      z-index: 3;
+    }
+
+    .mini-phone-screen {
+      width: 100%; height: 100%;
+      border-radius: 12.5% / 5.8%;
+      background: linear-gradient(180deg, #fbfafd, #f2f1f8);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .mini-phone-screen--image {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mini-phone-screen--image img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      object-position: center top;
+      display: block;
+    }
+
+    /* ============================================================
+       10 — FUTURE
+       ============================================================ */
+    #future { background: var(--bg-light-2); color: var(--ink); }
+
+    .future-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: var(--r-pill);
+      background: rgba(0,0,0,0.05);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      margin-bottom: 26px;
+    }
+
+    .future-list {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      max-width: 640px;
+      text-align: left;
+    }
+
+    .future-item {
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 850;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+      color: var(--ink);
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .future-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.45em;
+      width: 8px;
+      height: 8px;
+      border-radius: 3px;
+      background: var(--rainbow, var(--pink));
+      background: linear-gradient(90deg, var(--pink), var(--purple));
+    }
+
+    /* ============================================================
+       11 — WHOLE PICTURE (climax)
+       ============================================================ */
+    #whole-picture {
+      background: var(--bg-dark);
+      color: #fff;
+      height: 260vh;
+    }
+
+    .whole-picture-stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .mosaic {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(22, 1fr);
+      gap: 5px;
+      padding: 10vh 6vw;
+      opacity: 0;
+      transition: opacity 900ms var(--ease-out);
+    }
+
+    .mosaic.is-visible { opacity: 1; }
+
+    .mosaic .cell {
+      border-radius: 4px;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out);
+      transition-delay: var(--d, 0ms);
+    }
+
+    .mosaic.is-visible .cell {
+      opacity: 0.9;
+      transform: scale(1);
+    }
+
+    .whole-picture-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: radial-gradient(ellipse 620px 340px at center, rgba(10,10,15,0.82) 0%, rgba(10,10,15,0.55) 45%, rgba(10,10,15,0) 75%);
+      pointer-events: none;
+    }
+
+    .whole-picture-text {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 40px 32px;
+    }
+
+    .whole-picture-text .line {
+      font-size: clamp(30px, 6.5vw, 68px);
+      font-weight: 950;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transform: translateY(12px);
+      text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+      transition: opacity 560ms var(--ease-out), transform 560ms var(--ease-out);
+    }
+
+    .whole-picture-text .line.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mosaic .cell { transition-delay: 0ms !important; }
+    }
+
+    /* ============================================================
+       12 — FINAL
+       ============================================================ */
+    #final {
+      background: var(--bg-dark);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .final-logo {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 950;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+
+    .final-line {
+      font-size: clamp(18px, 2.6vw, 26px);
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 54px;
+    }
+
+    .final-home {
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .final-home:hover,
+    .final-home:focus-visible {
+      color: rgba(255,255,255,0.7);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="progress-rail" aria-hidden="true"><div class="progress-rail-fill" id="progressFill"></div></div>
+
+  <nav class="nav-bar" id="navBar" aria-label="Story navigation">
+    <a class="nav-home" href="https://happypixels.app/">← Happy Pixels</a>
+
+    <div class="nav-links">
+      <a href="#question" data-i18n="nav.story">Story</a>
+      <a href="#product" data-i18n="nav.product">Product</a>
+      <a href="#future" data-i18n="nav.vision">Vision</a>
+    </div>
+
+    <div class="nav-lang" role="group" aria-label="Language">
+      <button type="button" class="nav-lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" class="nav-lang-btn" data-lang="de" aria-pressed="false">DE</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============================================================
+         1 — OPENING
+         ============================================================ -->
+    <section id="opening" class="stage" aria-label="Introduction">
+      <div class="pixel-genesis" id="genesis" aria-hidden="true"></div>
+
+      <div class="opening-word" id="openingWord">
+        <div class="opening-logo">
+          <span>Happy </span><span class="gradient-text">Pixels</span>
+        </div>
+        <p class="opening-tagline" data-i18n="opening.tagline">Your life. One pixel at a time.</p>
+      </div>
+
+      <div class="scroll-hint" id="scrollHint">
+        <span class="scroll-hint-label" data-i18n="opening.scroll">Scroll</span>
+        <span class="scroll-chevron" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         2 — THE QUESTION (dark → light)
+         ============================================================ -->
+    <section id="question" aria-label="A question">
+      <div class="bg-transition-overlay" id="bgOverlay" aria-hidden="true"></div>
+
+      <div class="question-line stage">
+        <h2 class="headline-xl auto-contrast reveal" data-i18n="question.1">How much of your life<br />do you actually remember?</h2>
+      </div>
+
+      <div class="question-line stage stage-tight">
+        <p class="headline-md auto-contrast reveal" data-i18n="question.2">What were you doing exactly one year ago today?</p>
+      </div>
+
+      <div class="question-line stage stage-tight">
+        <p class="headline-md auto-contrast reveal" data-i18n="question.3">What was your favorite day last month?</p>
+      </div>
+
+      <div class="question-line stage stage-tight">
+        <p class="headline-md auto-contrast reveal" data-i18n="question.4">Which ordinary moment would you love to remember?</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3 — THE IDEA
+         ============================================================ -->
+    <section id="idea" class="stage" aria-label="The idea">
+      <h2 class="headline-lg reveal" data-i18n="idea.headline">What if every day<br />could become a memory?</h2>
+
+      <div class="idea-mark reveal">
+        <img src="../assets/happy-pixels-icon.png" width="1024" height="1024" alt="" />
+        <span class="idea-mark-text">Happy <span class="gradient-text">Pixels</span></span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3B — NOT ANOTHER DIARY
+         ============================================================ -->
+    <section id="not-a-diary" class="stage" aria-label="Why not a diary">
+      <p class="eyebrow reveal" data-i18n="diary.eyebrow">Not another diary</p>
+      <h2 class="headline-lg reveal" data-i18n="diary.headline">A diary asks you to write.<br />Happy Pixels just asks: how was your day?</h2>
+
+      <div class="diary-compare reveal">
+        <div class="diary-col diary-col--old">
+          <span class="diary-col-label" data-i18n="diary.old.label">A diary</span>
+          <p data-i18n="diary.old.1">Sit down.</p>
+          <p data-i18n="diary.old.2">Write pages.</p>
+          <p class="diary-col-muted" data-i18n="diary.old.3">Most people stop after a week.</p>
+        </div>
+        <div class="diary-col diary-col--new">
+          <span class="diary-col-label diary-col-label--accent">Happy Pixels</span>
+          <p data-i18n="diary.new.1">Pick a mood.</p>
+          <p data-i18n="diary.new.2">Maybe one sentence.</p>
+          <p class="diary-col-strong" data-i18n="diary.new.3">Done in seconds. Becomes a habit.</p>
+        </div>
+      </div>
+
+      <p class="lede on-light reveal" data-i18n="diary.closing">It's not about replacing writing. It's about making remembering possible for everyone else.</p>
+    </section>
+
+    <!-- ============================================================
+         4 — PRODUCT REVEAL
+         ============================================================ -->
+    <section id="product" class="stage" aria-label="The product">
+      <p class="eyebrow reveal" data-i18n="product.eyebrow">The idea, made real</p>
+      <h2 class="headline-lg reveal" data-i18n="product.headline">One pixel a day.<br />Your whole year, at a glance.</h2>
+
+      <div class="phone-stage" id="phoneStage">
+        <div class="phone phone-bg reveal" aria-hidden="true" style="transition-delay:250ms;">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="phone-screen phone-screen--image">
+            <img src="assets/screens/onboarding-hello.png" alt="" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="phone phone-lg" id="heroPhone">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="phone-screen phone-screen--image">
+            <img
+              src="assets/screens/onboarding-year.png"
+              alt="Happy Pixels onboarding screen: 'Every pixel is a day' with an empty year calendar grid, ready to be filled in one colorful day at a time"
+              loading="eager"
+            />
+          </div>
+        </div>
+
+        <div class="floating-chip chip-streak reveal" style="transition-delay:900ms;"><span data-i18n="product.chipStreak">🔥 12 day streak</span></div>
+        <div class="floating-chip chip-mood reveal" style="transition-delay:1050ms;"><span data-i18n="product.chipMood">😊 Mood logged</span></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4B — WHY THE PIXEL MATTERS
+         ============================================================ -->
+    <section id="pixel-matters" class="stage stage-tight" aria-label="Why the pixel matters">
+      <p class="eyebrow reveal" data-i18n="matters.eyebrow">The overview is the magic</p>
+      <div class="matters-lines">
+        <p class="matters-line matters-line--muted reveal" data-i18n="matters.1">A diary gives you pages.</p>
+        <p class="matters-line matters-line--muted reveal" data-i18n="matters.2">A gallery gives you photos.</p>
+        <p class="matters-line matters-line--muted reveal" data-i18n="matters.3">A calendar gives you dates.</p>
+        <p class="matters-line reveal" data-i18n="matters.4">Happy Pixels gives you a picture of your life.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         5 — YEAR IN PIXELS
+         ============================================================ -->
+    <section id="year-in-pixels" aria-label="From one day to a whole year">
+      <div class="year-stage" id="yearStage" data-stage="0">
+        <div class="year-label-wrap">
+          <span class="year-label" data-for="0" data-i18n="year.day">ONE DAY</span>
+          <span class="year-label" data-for="1" data-i18n="year.week">ONE WEEK</span>
+          <span class="year-label" data-for="2" data-i18n="year.month">ONE MONTH</span>
+          <span class="year-label" data-for="3" data-i18n="year.year">ONE YEAR</span>
+        </div>
+
+        <div class="year-visual">
+          <div class="year-hero-pixel" aria-hidden="true"></div>
+          <div class="year-grid" id="yearGrid"></div>
+        </div>
+
+        <p class="year-caption" id="yearCaption">Every day is one pixel.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         6 — MEMORIES
+         ============================================================ -->
+    <section id="memories" class="stage" aria-label="Memories">
+      <p class="eyebrow reveal" data-i18n="memories.eyebrow">Some moments deserve more</p>
+      <h2 class="headline-lg reveal" data-i18n="memories.headline">Some moments deserve<br />more than a pixel.</h2>
+      <p class="lede on-light reveal" data-i18n="memories.lede">The pixel gives you the overview. The memory gives the day meaning.</p>
+
+      <div class="memory-showcase">
+        <div class="memory-grid reveal">
+          <div class="memory-chip glass-card">
+            <div class="memory-chip-icon">😊</div>
+            <h3 data-i18n="memories.mood.title">Mood</h3>
+            <p data-i18n="memories.mood.body">Log how the day felt in one tap.</p>
+          </div>
+          <div class="memory-chip glass-card">
+            <div class="memory-chip-icon">📝</div>
+            <h3 data-i18n="memories.note.title">Note</h3>
+            <p data-i18n="memories.note.body">Write down what made it that kind of day.</p>
+          </div>
+          <div class="memory-chip glass-card">
+            <div class="memory-chip-icon">🖼️</div>
+            <h3 data-i18n="memories.photo.title">Photo</h3>
+            <p data-i18n="memories.photo.body">Attach a picture so it's easier to remember.</p>
+          </div>
+          <div class="memory-chip glass-card">
+            <div class="memory-chip-icon">🎙️</div>
+            <h3 data-i18n="memories.voice.title">Voice Memory</h3>
+            <p data-i18n="memories.voice.body">Say it out loud and keep the sound of the moment.</p>
+          </div>
+        </div>
+
+        <div class="phone mini-showcase-phone reveal">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="phone-screen phone-screen--image is-cover">
+            <img
+              src="assets/screens/day-entry.png"
+              alt="A real Happy Pixels day entry screen: a mood picker, a note field, and buttons to attach a photo from the camera or gallery"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         6B — A FICTIONAL EXAMPLE: BIRGIT
+         ============================================================ -->
+    <section id="example-birgit" class="stage" aria-label="A fictional example">
+      <p class="eyebrow reveal" data-i18n="birgit.eyebrow">A fictional example</p>
+      <h2 class="headline-lg reveal" data-i18n="birgit.headline">Meet Birgit.</h2>
+
+      <div class="beat-lines">
+        <p class="beat-line reveal" data-i18n="birgit.1">It's an ordinary Tuesday.</p>
+        <p class="beat-line reveal" data-i18n="birgit.2">She picks a mood.</p>
+        <p class="beat-line reveal" data-i18n="birgit.3">Adds one sentence.</p>
+        <p class="beat-line reveal" data-i18n="birgit.4">Saves a photo.</p>
+        <p class="beat-line beat-line--accent reveal" data-i18n="birgit.5">That's it. Thirty seconds.</p>
+      </div>
+
+      <div class="beat-pause reveal" aria-hidden="true"></div>
+
+      <div class="beat-lines">
+        <p class="beat-line beat-line--muted reveal" data-i18n="birgit.6">Months later.</p>
+        <p class="beat-line reveal" data-i18n="birgit.7">She doesn't just see a colored calendar.</p>
+        <p class="beat-line beat-line--accent reveal" data-i18n="birgit.8">She sees that Tuesday again.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         6C — MORE THAN PERFECT DAYS
+         ============================================================ -->
+    <section id="more-than-perfect" class="stage" aria-label="More than perfect days">
+      <p class="eyebrow reveal" data-i18n="more.eyebrow">Not just the good days</p>
+      <h2 class="headline-lg reveal" data-i18n="more.headline">Life isn't only good days.</h2>
+
+      <div class="people-list reveal">
+        <div class="people-row"><span class="people-dot" style="background:var(--p6)"></span><strong>Andreas</strong> — <span data-i18n="more.andreas">a night out with friends he wants to remember.</span></div>
+        <div class="people-row"><span class="people-dot" style="background:var(--p4)"></span><strong>Anna</strong> — <span data-i18n="more.anna">a hard day she needed to let out.</span></div>
+        <div class="people-row"><span class="people-dot" style="background:var(--p7)"></span><strong>David</strong> — <span data-i18n="more.david">the day he finally hit his goal.</span></div>
+        <div class="people-row"><span class="people-dot" style="background:var(--p5)"></span><strong>Sophie</strong> — <span data-i18n="more.sophie">a completely ordinary Sunday.</span></div>
+      </div>
+
+      <p class="headline-md reveal" style="margin-top:34px;" data-i18n="more.closing">Good days. Bad days. Ordinary days. All of them worth a pixel.</p>
+      <p class="people-footnote reveal" data-i18n="more.footnote">Birgit, Andreas, Anna, David and Sophie are fictional examples — not real users.</p>
+    </section>
+
+    <!-- ============================================================
+         6D — TRY IT YOURSELF (interactive, nothing is saved)
+         ============================================================ -->
+    <section id="try-it" class="stage" aria-label="Try it yourself">
+      <p class="eyebrow reveal" data-i18n="try.eyebrow">Enough explaining</p>
+      <h2 class="headline-lg reveal" data-i18n="try.headline">Make it yours.</h2>
+      <p class="lede on-light reveal" data-i18n="try.sub">Your day doesn't need a page. It can be a moment. Try it — nothing here is saved.</p>
+
+      <div class="try-card glass-card reveal" id="tryCard">
+        <div class="try-step" data-for="name">
+          <label class="try-label" for="tryName" data-i18n="try.name.label">What's your name?</label>
+          <div class="try-row">
+            <input class="try-input" id="tryName" type="text" data-i18n-placeholder="try.name.placeholder" placeholder="Birgit" maxlength="24" autocomplete="off" />
+            <button type="button" class="try-button" id="tryNameNext" data-i18n="try.continue">Continue</button>
+          </div>
+        </div>
+
+        <div class="try-step" data-for="mood" hidden>
+          <p class="try-greeting" id="tryGreeting">Hi.</p>
+          <p class="try-label" data-i18n="try.mood.label">How was your day?</p>
+          <div class="mood-pick-row" id="moodPickRow">
+            <button type="button" class="mood-pick" data-mood-var="--p3">😊 <span data-i18n="mood.good">Good</span></button>
+            <button type="button" class="mood-pick" data-mood-var="--p8">🙁 <span data-i18n="mood.bad">Bad</span></button>
+            <button type="button" class="mood-pick" data-mood-var="--p1">🤩 <span data-i18n="mood.best">Best Day</span></button>
+            <button type="button" class="mood-pick" data-mood-var="--p2">😐 <span data-i18n="mood.okay">Okay</span></button>
+            <button type="button" class="mood-pick" data-mood-var="--p4">😎 <span data-i18n="mood.cool">Cool</span></button>
+          </div>
+        </div>
+
+        <div class="try-step" data-for="moment" hidden>
+          <p class="try-label" data-i18n="try.moment.label">Remember something from today.</p>
+          <div class="try-row">
+            <input class="try-input" id="tryMoment" type="text" data-i18n-placeholder="try.moment.placeholder" placeholder="Coffee with Andreas ☕" maxlength="60" autocomplete="off" />
+            <button type="button" class="try-button" id="trySave" data-i18n="try.save">Save</button>
+          </div>
+        </div>
+
+        <div class="try-step try-step--reveal" data-for="reveal" hidden>
+          <div class="try-pixel-field" id="tryPixelField" aria-hidden="true"></div>
+          <p class="try-reveal-line" id="tryLine1" data-i18n="try.reveal.1">A few simple choices.</p>
+          <p class="try-reveal-line try-reveal-line--accent" id="tryLine2" data-i18n="try.reveal.2">Your whole year, remembered.</p>
+          <button type="button" class="try-restart" id="tryRestart" data-i18n="try.restart">Try again</button>
+        </div>
+      </div>
+
+      <div class="coming-soon-strip reveal">
+        <span class="coming-soon-label" data-i18n="try.comingSoon">Coming soon on</span>
+        <div class="coming-soon-pills">
+          <span class="coming-soon-pill">🍎 iOS</span>
+          <span class="coming-soon-pill coming-soon-pill--light">🤖 Android</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         7 — FEATURES
+         ============================================================ -->
+    <section id="feat-streaks" class="stage" aria-label="Streaks">
+      <div class="split-layout">
+        <div class="reveal">
+          <p class="eyebrow" style="justify-content:flex-start;" data-i18n="streaks.eyebrow">Consistency</p>
+          <div>
+            <span class="streak-hero-flame">🔥</span>
+            <span class="streak-hero-number">12</span>
+          </div>
+          <h2 class="headline-md" data-i18n="streaks.headline">Build a streak.<br />Challenge your friends.</h2>
+        </div>
+
+        <div class="phone mini-showcase-phone reveal">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="phone-screen phone-screen--image">
+            <img
+              src="assets/screens/onboarding-challenge.png"
+              alt="A real Happy Pixels screen comparing your streak (21 days) against a friend's streak (18 days)"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="feat-stats" class="stage" aria-label="Statistics">
+      <div class="stats-split">
+        <div class="reveal">
+          <p class="eyebrow" style="justify-content:flex-start;" data-i18n="stats.eyebrow">Insight</p>
+          <h2 class="headline-md" data-i18n="stats.headline">Always see your stats.</h2>
+          <p class="lede on-light" style="margin-left:0;" data-i18n="stats.body">Your progress, your most-used moods, and a full yearly overview — whenever you want to look back.</p>
+        </div>
+
+        <div class="mini-chart glass-card reveal">
+          <div class="mini-bar" style="height:38%; background:var(--p3);"></div>
+          <div class="mini-bar" style="height:64%; background:var(--p1);"></div>
+          <div class="mini-bar" style="height:46%; background:var(--p2);"></div>
+          <div class="mini-bar" style="height:82%; background:var(--p4);"></div>
+          <div class="mini-bar" style="height:58%; background:var(--p5);"></div>
+          <div class="mini-bar" style="height:70%; background:var(--p6);"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="feat-custom" class="stage" aria-label="Customization">
+      <div class="split-layout">
+        <div class="reveal">
+          <p class="eyebrow" style="justify-content:flex-start;" data-i18n="custom.eyebrow">Make it yours</p>
+          <h2 class="headline-md" data-i18n="custom.headline">Track mood, water, gym,<br />school — or anything else.</h2>
+
+          <div class="category-row" style="justify-content:flex-start; margin-top: 28px;">
+            <span class="category-pill">😊 <span data-i18n="custom.pill.mood">Mood</span></span>
+            <span class="category-pill">💧 <span data-i18n="custom.pill.water">Water</span></span>
+            <span class="category-pill">💪 <span data-i18n="custom.pill.gym">Gym</span></span>
+            <span class="category-pill">📚 <span data-i18n="custom.pill.school">School</span></span>
+            <span class="category-pill">😴 <span data-i18n="custom.pill.sleep">Sleep</span></span>
+            <span class="category-pill">🧠 <span data-i18n="custom.pill.study">Study</span></span>
+          </div>
+        </div>
+
+        <div class="phone mini-showcase-phone reveal">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="phone-screen phone-screen--image">
+            <img
+              src="assets/screens/color-edit.png"
+              alt="A real Happy Pixels screen for editing a mood's name and picking its color from a full palette"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="badge-row">
+        <div class="badge-card glass-card reveal"><div class="icon">🏆</div><h4 data-i18n="badges.badges.title">Badges</h4><p data-i18n="badges.badges.body">Unlock milestones as you build your habit.</p></div>
+        <div class="badge-card glass-card reveal"><div class="icon">🎨</div><h4 data-i18n="badges.colors.title">Your colors</h4><p data-i18n="badges.colors.body">Pick the palette that feels like you.</p></div>
+        <div class="badge-card glass-card reveal"><div class="icon">🔒</div><h4 data-i18n="badges.private.title">Private</h4><p data-i18n="badges.private.body">Lock your diary with Face ID.</p></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         8 — TWO FRIENDS
+         ============================================================ -->
+    <section id="story-timeline" class="stage" aria-label="Our story">
+      <p class="eyebrow reveal" style="color:rgba(255,255,255,0.5);" data-i18n="story.eyebrow">Our story</p>
+      <h2 class="headline-lg reveal" data-i18n="story.headline">Two friends. One idea.</h2>
+      <p class="lede reveal" data-i18n="story.body">Happy Pixels started as a simple idea between two friends who wanted a better way to remember their days. We didn't just talk about it — we designed it, built it, and kept refining it until it felt right.</p>
+
+      <div class="timeline reveal">
+        <div class="timeline-step"><div class="timeline-num" style="transition-delay:80ms;">1</div><h3 data-i18n="story.step1.title">Idea</h3><p data-i18n="story.step1.body">A better way to remember a day.</p></div>
+        <div class="timeline-step"><div class="timeline-num" style="transition-delay:220ms;">2</div><h3 data-i18n="story.step2.title">Design</h3><p data-i18n="story.step2.body">Turning the idea into something simple.</p></div>
+        <div class="timeline-step"><div class="timeline-num" style="transition-delay:360ms;">3</div><h3 data-i18n="story.step3.title">Development</h3><p data-i18n="story.step3.body">Building it, pixel by pixel.</p></div>
+        <div class="timeline-step"><div class="timeline-num" style="transition-delay:500ms;">4</div><h3 data-i18n="story.step4.title">Testing</h3><p data-i18n="story.step4.body">Using it ourselves, every day.</p></div>
+        <div class="timeline-step"><div class="timeline-num" style="transition-delay:640ms;">5</div><h3 data-i18n="story.step5.title">Real Product</h3><p data-i18n="story.step5.body">Happy Pixels, today.</p></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         9 — TODAY
+         ============================================================ -->
+    <section id="today" class="stage" aria-label="Happy Pixels today">
+      <span class="status-tag reveal" data-i18n="today.tag">🚧 In active development</span>
+      <h2 class="headline-lg reveal" data-i18n="today.headline">A real product.<br />Being built and tested today.</h2>
+      <p class="lede on-light reveal" data-i18n="today.body">Not a concept. Not a mockup. Happy Pixels for iOS and Android, coming soon.</p>
+
+      <div class="mini-phone-row">
+        <div class="mini-phone reveal">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="mini-phone-screen mini-phone-screen--image">
+            <img
+              src="assets/screens/onboarding-pages.png"
+              alt="Real Happy Pixels screen: create your own pages, like Mood or Gym"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="mini-phone reveal">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="mini-phone-screen mini-phone-screen--image">
+            <img
+              src="assets/screens/onboarding-share.png"
+              alt="Real Happy Pixels screen for sharing your streak on TikTok or Instagram"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="mini-phone reveal">
+          <div class="dynamic-island" aria-hidden="true"></div>
+          <div class="mini-phone-screen mini-phone-screen--image">
+            <img
+              src="assets/screens/onboarding-lock.png"
+              alt="Real Happy Pixels screen for protecting your entries with Face ID"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         10 — FUTURE
+         ============================================================ -->
+    <section id="future" class="stage" aria-label="The future">
+      <span class="future-tag reveal" data-i18n="future.tag">Vision — not yet built</span>
+      <h2 class="headline-lg reveal" data-i18n="future.headline">This is only the beginning.</h2>
+
+      <div class="future-list" style="margin-top:34px;">
+        <p class="future-item reveal" data-i18n="future.item1">Richer memories — more ways to preserve a moment.</p>
+        <p class="future-item reveal" data-i18n="future.item2">Yearly retrospectives that tell your story back to you.</p>
+        <p class="future-item reveal" data-i18n="future.item3">Deeper personal insight, built from your own days.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         10B — RECAP
+         ============================================================ -->
+    <section id="recap" class="stage" aria-label="Recap">
+      <div class="recap-lines">
+        <p class="recap-line reveal" style="transition-delay:0ms;" data-i18n="recap.1">One day.</p>
+        <p class="recap-line reveal" style="transition-delay:150ms;" data-i18n="recap.2">One pixel.</p>
+        <p class="recap-line reveal" style="transition-delay:300ms;" data-i18n="recap.3">One year.</p>
+        <p class="recap-line recap-line--accent reveal" style="transition-delay:450ms;" data-i18n="recap.4">Your whole picture.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         11 — WHOLE PICTURE
+         ============================================================ -->
+    <section id="whole-picture" aria-label="The whole picture">
+      <div class="whole-picture-stage" id="wholePictureStage">
+        <div class="mosaic" id="mosaic" aria-hidden="true"></div>
+        <div class="whole-picture-scrim" aria-hidden="true"></div>
+        <div class="whole-picture-text">
+          <p class="line" id="wpLine1" data-i18n="climax.line1">Today is just one pixel.</p>
+          <p class="line" id="wpLine2" data-i18n="climax.line2">But your life is the whole picture.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         12 — FINAL
+         ============================================================ -->
+    <section id="final" class="stage" aria-label="Closing">
+      <div class="final-logo reveal">
+        <span>Happy </span><span class="gradient-text">Pixels</span>
+      </div>
+      <p class="final-line reveal" data-i18n="final.line">Make every day a memory.</p>
+      <a class="final-home reveal" href="https://happypixels.app/">happypixels.app</a>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* -------- palette for generated pixel grids -------- */
+      var PALETTE = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"];
+      function colorFor(i) {
+        var key = PALETTE[i % PALETTE.length];
+        return "var(--" + key + ")";
+      }
+      /* de-correlates neighboring indices so large generated grids (year,
+         mosaic) don't read as an obvious repeating diagonal stripe */
+      function scrambledColor(i) {
+        return colorFor((i * 7 + 3) % PALETTE.length + Math.floor(i / PALETTE.length) * 3);
+      }
+
+      /* -------- i18n: English / Deutsch -------- */
+      var I18N = {
+        en: {
+          "nav.story": "Story",
+          "nav.product": "Product",
+          "nav.vision": "Vision",
+          "opening.tagline": "Your life. One pixel at a time.",
+          "opening.scroll": "Scroll",
+          "question.1": "How much of your life<br />do you actually remember?",
+          "question.2": "What were you doing exactly one year ago today?",
+          "question.3": "What was your favorite day last month?",
+          "question.4": "Which ordinary moment would you love to remember?",
+          "idea.headline": "What if every day<br />could become a memory?",
+          "product.eyebrow": "The idea, made real",
+          "product.headline": "One pixel a day.<br />Your whole year, at a glance.",
+          "product.chipStreak": "🔥 12 day streak",
+          "product.chipMood": "😊 Mood logged",
+          "year.day": "ONE DAY",
+          "year.week": "ONE WEEK",
+          "year.month": "ONE MONTH",
+          "year.year": "ONE YEAR",
+          "year.caption.0": "Every day is one pixel.",
+          "year.caption.1": "Seven pixels. Seven days.",
+          "year.caption.2": "About thirty days make a month.",
+          "year.caption.3": "Your whole year, at a glance.",
+          "memories.eyebrow": "Some moments deserve more",
+          "memories.headline": "Some moments deserve<br />more than a pixel.",
+          "memories.lede": "The pixel gives you the overview. The memory gives the day meaning.",
+          "memories.mood.title": "Mood",
+          "memories.mood.body": "Log how the day felt in one tap.",
+          "memories.note.title": "Note",
+          "memories.note.body": "Write down what made it that kind of day.",
+          "memories.photo.title": "Photo",
+          "memories.photo.body": "Attach a picture so it's easier to remember.",
+          "memories.voice.title": "Voice Memory",
+          "memories.voice.body": "Say it out loud and keep the sound of the moment.",
+          "streaks.eyebrow": "Consistency",
+          "streaks.headline": "Build a streak.<br />Challenge your friends.",
+          "stats.eyebrow": "Insight",
+          "stats.headline": "Always see your stats.",
+          "stats.body": "Your patterns. Your progress. Your whole year — whenever you want to look back.",
+          "custom.eyebrow": "Make it yours",
+          "custom.headline": "Track mood, water, gym,<br />school — or anything else.",
+          "custom.pill.mood": "Mood",
+          "custom.pill.water": "Water",
+          "custom.pill.gym": "Gym",
+          "custom.pill.school": "School",
+          "custom.pill.sleep": "Sleep",
+          "custom.pill.study": "Study",
+          "badges.badges.title": "Badges",
+          "badges.badges.body": "Unlock milestones as you build your habit.",
+          "badges.colors.title": "Your colors",
+          "badges.colors.body": "Pick the palette that feels like you.",
+          "badges.private.title": "Private",
+          "badges.private.body": "Lock your diary with Face ID.",
+          "story.eyebrow": "Our story",
+          "story.headline": "Two friends. One idea.",
+          "story.body": "Two friends wanted a better way to remember their days. So they designed it, built it, and kept refining it — until it felt right.",
+          "story.step1.title": "Idea",
+          "story.step1.body": "A better way to remember a day.",
+          "story.step2.title": "Design",
+          "story.step2.body": "Turning the idea into something simple.",
+          "story.step3.title": "Development",
+          "story.step3.body": "Building it, pixel by pixel.",
+          "story.step4.title": "Testing",
+          "story.step4.body": "Using it ourselves, every day.",
+          "story.step5.title": "Real Product",
+          "story.step5.body": "Happy Pixels, today.",
+          "today.tag": "🚧 In active development",
+          "today.headline": "A real product.<br />Being built and tested today.",
+          "today.body": "Not a concept. Not a mockup. Happy Pixels for iOS and Android, coming soon.",
+          "future.tag": "Vision — not yet built",
+          "future.headline": "This is only the beginning.",
+          "future.item1": "Richer memories — more ways to preserve a moment.",
+          "future.item2": "Yearly retrospectives that tell your story back to you.",
+          "future.item3": "Deeper personal insight, built from your own days.",
+          "climax.line1": "Today is just one pixel.",
+          "climax.line2": "But your life is the whole picture.",
+          "diary.eyebrow": "Not another diary",
+          "diary.headline": "A diary asks you to write.<br />Happy Pixels just asks: how was your day?",
+          "diary.old.label": "A diary",
+          "diary.old.1": "Sit down.",
+          "diary.old.2": "Write pages.",
+          "diary.old.3": "Most people stop after a week.",
+          "diary.new.1": "Pick a mood.",
+          "diary.new.2": "Maybe one sentence.",
+          "diary.new.3": "Done in seconds. Becomes a habit.",
+          "diary.closing": "It's not about replacing writing. It's about making remembering possible for everyone else.",
+          "matters.eyebrow": "The overview is the magic",
+          "matters.1": "A diary gives you pages.",
+          "matters.2": "A gallery gives you photos.",
+          "matters.3": "A calendar gives you dates.",
+          "matters.4": "Happy Pixels gives you a picture of your life.",
+          "birgit.eyebrow": "A fictional example",
+          "birgit.headline": "Meet Birgit.",
+          "birgit.1": "It's an ordinary Tuesday.",
+          "birgit.2": "She picks a mood.",
+          "birgit.3": "Adds one sentence.",
+          "birgit.4": "Saves a photo.",
+          "birgit.5": "That's it. Thirty seconds.",
+          "birgit.6": "Months later.",
+          "birgit.7": "She doesn't just see a colored calendar.",
+          "birgit.8": "She sees that Tuesday again.",
+          "more.eyebrow": "Not just the good days",
+          "more.headline": "Life isn't only good days.",
+          "more.andreas": "a night out with friends he wants to remember.",
+          "more.anna": "a hard day she needed to let out.",
+          "more.david": "the day he finally hit his goal.",
+          "more.sophie": "a completely ordinary Sunday.",
+          "more.closing": "Good days. Bad days. Ordinary days. All of them worth a pixel.",
+          "more.footnote": "Birgit, Andreas, Anna, David and Sophie are fictional examples — not real users.",
+          "recap.1": "One day.",
+          "recap.2": "One pixel.",
+          "recap.3": "One year.",
+          "recap.4": "Your whole picture.",
+          "try.eyebrow": "Enough explaining",
+          "try.headline": "Make it yours.",
+          "try.sub": "Your day doesn't need a page. It can be a moment. Try it — nothing here is saved.",
+          "try.name.label": "What's your name?",
+          "try.name.placeholder": "Birgit",
+          "try.continue": "Continue",
+          "try.hi": "Hi",
+          "try.mood.label": "How was your day?",
+          "try.moment.label": "Remember something from today.",
+          "try.moment.placeholder": "Coffee with Andreas ☕",
+          "try.save": "Save",
+          "try.reveal.1": "A few simple choices.",
+          "try.reveal.2": "Your whole year, remembered.",
+          "try.restart": "Try again",
+          "try.comingSoon": "Coming soon on",
+          "mood.good": "Good",
+          "mood.bad": "Bad",
+          "mood.best": "Best Day",
+          "mood.okay": "Okay",
+          "mood.cool": "Cool",
+          "final.line": "Make every day a memory."
+        },
+        de: {
+          "nav.story": "Geschichte",
+          "nav.product": "Produkt",
+          "nav.vision": "Vision",
+          "opening.tagline": "Dein Leben. Ein Pixel nach dem anderen.",
+          "opening.scroll": "Scrollen",
+          "question.1": "Wie viel von deinem Leben<br />erinnerst du dich wirklich?",
+          "question.2": "Was hast du vor genau einem Jahr heute gemacht?",
+          "question.3": "Was war dein Lieblingstag im letzten Monat?",
+          "question.4": "An welchen ganz gewöhnlichen Moment würdest du dich gerne erinnern?",
+          "idea.headline": "Was, wenn jeder Tag<br />zu einer Erinnerung werden könnte?",
+          "product.eyebrow": "Die Idee, real gemacht",
+          "product.headline": "Ein Pixel pro Tag.<br />Dein ganzes Jahr auf einen Blick.",
+          "product.chipStreak": "🔥 12 Tage Streak",
+          "product.chipMood": "😊 Stimmung erfasst",
+          "year.day": "EIN TAG",
+          "year.week": "EINE WOCHE",
+          "year.month": "EIN MONAT",
+          "year.year": "EIN JAHR",
+          "year.caption.0": "Jeder Tag ist ein Pixel.",
+          "year.caption.1": "Sieben Pixel. Sieben Tage.",
+          "year.caption.2": "Rund dreißig Tage ergeben einen Monat.",
+          "year.caption.3": "Dein ganzes Jahr auf einen Blick.",
+          "memories.eyebrow": "Manche Momente verdienen mehr",
+          "memories.headline": "Manche Momente verdienen<br />mehr als einen Pixel.",
+          "memories.lede": "Der Pixel gibt dir den Überblick. Die Erinnerung gibt dem Tag seinen Sinn.",
+          "memories.mood.title": "Stimmung",
+          "memories.mood.body": "Halte in einem Tipp fest, wie sich der Tag angefühlt hat.",
+          "memories.note.title": "Notiz",
+          "memories.note.body": "Schreib auf, was den Tag zu diesem Tag gemacht hat.",
+          "memories.photo.title": "Foto",
+          "memories.photo.body": "Füge ein Bild hinzu, damit du dich leichter erinnerst.",
+          "memories.voice.title": "Sprachnotiz",
+          "memories.voice.body": "Sag es laut und behalte den Klang des Moments.",
+          "streaks.eyebrow": "Kontinuität",
+          "streaks.headline": "Bau dir einen Streak auf.<br />Fordere deine Freunde heraus.",
+          "stats.eyebrow": "Einblick",
+          "stats.headline": "Behalte deine Statistik immer im Blick.",
+          "stats.body": "Deine Muster. Dein Fortschritt. Dein ganzes Jahr — wann immer du zurückblicken willst.",
+          "custom.eyebrow": "Mach es zu deinem",
+          "custom.headline": "Tracke Stimmung, Wasser, Gym,<br />Schule — oder alles andere.",
+          "custom.pill.mood": "Stimmung",
+          "custom.pill.water": "Wasser",
+          "custom.pill.gym": "Gym",
+          "custom.pill.school": "Schule",
+          "custom.pill.sleep": "Schlaf",
+          "custom.pill.study": "Lernen",
+          "badges.badges.title": "Abzeichen",
+          "badges.badges.body": "Schalte Meilensteine frei, während du deine Gewohnheit aufbaust.",
+          "badges.colors.title": "Deine Farben",
+          "badges.colors.body": "Wähl die Palette, die zu dir passt.",
+          "badges.private.title": "Privat",
+          "badges.private.body": "Schütze dein Tagebuch mit Face ID.",
+          "story.eyebrow": "Unsere Geschichte",
+          "story.headline": "Zwei Freunde. Eine Idee.",
+          "story.body": "Zwei Freunde wollten einen besseren Weg finden, sich an ihre Tage zu erinnern. Also haben sie es designt, gebaut und immer weiter verfeinert — bis es sich richtig angefühlt hat.",
+          "story.step1.title": "Idee",
+          "story.step1.body": "Ein besserer Weg, sich an einen Tag zu erinnern.",
+          "story.step2.title": "Design",
+          "story.step2.body": "Die Idee in etwas Einfaches verwandeln.",
+          "story.step3.title": "Entwicklung",
+          "story.step3.body": "Es Pixel für Pixel bauen.",
+          "story.step4.title": "Testen",
+          "story.step4.body": "Es selbst jeden Tag benutzen.",
+          "story.step5.title": "Echtes Produkt",
+          "story.step5.body": "Happy Pixels, heute.",
+          "today.tag": "🚧 In aktiver Entwicklung",
+          "today.headline": "Ein echtes Produkt.<br />Wird heute gebaut und getestet.",
+          "today.body": "Kein Konzept. Kein Mockup. Happy Pixels für iOS und Android — bald verfügbar.",
+          "future.tag": "Vision — noch nicht gebaut",
+          "future.headline": "Das ist erst der Anfang.",
+          "future.item1": "Reichhaltigere Erinnerungen — mehr Wege, einen Moment festzuhalten.",
+          "future.item2": "Jahresrückblicke, die dir deine eigene Geschichte erzählen.",
+          "future.item3": "Tiefere persönliche Einblicke, gebaut aus deinen eigenen Tagen.",
+          "climax.line1": "Heute ist nur ein Pixel.",
+          "climax.line2": "Aber dein Leben ist das ganze Bild.",
+          "diary.eyebrow": "Kein weiteres Tagebuch",
+          "diary.headline": "Ein Tagebuch verlangt, dass du schreibst.<br />Happy Pixels fragt einfach: Wie war dein Tag?",
+          "diary.old.label": "Ein Tagebuch",
+          "diary.old.1": "Hinsetzen.",
+          "diary.old.2": "Seiten schreiben.",
+          "diary.old.3": "Die meisten hören nach einer Woche wieder auf.",
+          "diary.new.1": "Stimmung wählen.",
+          "diary.new.2": "Vielleicht ein Satz.",
+          "diary.new.3": "Fertig in Sekunden. Wird zur Gewohnheit.",
+          "diary.closing": "Es geht nicht darum, das Schreiben zu ersetzen. Es geht darum, das Erinnern für alle anderen möglich zu machen.",
+          "matters.eyebrow": "Der Überblick ist die Magie",
+          "matters.1": "Ein Tagebuch gibt dir Seiten.",
+          "matters.2": "Eine Galerie gibt dir Fotos.",
+          "matters.3": "Ein Kalender gibt dir Daten.",
+          "matters.4": "Happy Pixels gibt dir ein Bild deines Lebens.",
+          "birgit.eyebrow": "Ein fiktives Beispiel",
+          "birgit.headline": "Das ist Birgit.",
+          "birgit.1": "Es ist ein ganz gewöhnlicher Dienstag.",
+          "birgit.2": "Sie wählt eine Stimmung.",
+          "birgit.3": "Schreibt einen Satz.",
+          "birgit.4": "Speichert ein Foto.",
+          "birgit.5": "Das war's. Dreißig Sekunden.",
+          "birgit.6": "Monate später.",
+          "birgit.7": "Sie sieht nicht nur einen bunten Kalender.",
+          "birgit.8": "Sie sieht diesen Dienstag wieder.",
+          "more.eyebrow": "Nicht nur die guten Tage",
+          "more.headline": "Das Leben besteht nicht nur aus guten Tagen.",
+          "more.andreas": "ein Abend mit Freunden, an den er sich erinnern will.",
+          "more.anna": "ein schwerer Tag, den sie loslassen musste.",
+          "more.david": "der Tag, an dem er sein Ziel endlich erreicht hat.",
+          "more.sophie": "ein ganz gewöhnlicher Sonntag.",
+          "more.closing": "Gute Tage. Schlechte Tage. Gewöhnliche Tage. Jeder davon einen Pixel wert.",
+          "more.footnote": "Birgit, Andreas, Anna, David und Sophie sind fiktive Beispiele — keine echten Nutzer.",
+          "recap.1": "Ein Tag.",
+          "recap.2": "Ein Pixel.",
+          "recap.3": "Ein Jahr.",
+          "recap.4": "Dein ganzes Bild.",
+          "try.eyebrow": "Genug erklärt",
+          "try.headline": "Mach es zu deinem.",
+          "try.sub": "Dein Tag braucht keine Seite. Er kann ein Moment sein. Probier's aus — hier wird nichts gespeichert.",
+          "try.name.label": "Wie heißt du?",
+          "try.name.placeholder": "Birgit",
+          "try.continue": "Weiter",
+          "try.hi": "Hallo",
+          "try.mood.label": "Wie war dein Tag?",
+          "try.moment.label": "Woran erinnerst du dich von heute?",
+          "try.moment.placeholder": "Kaffee mit Andreas ☕",
+          "try.save": "Speichern",
+          "try.reveal.1": "Ein paar einfache Klicks.",
+          "try.reveal.2": "Dein ganzes Jahr, erinnert.",
+          "try.restart": "Nochmal versuchen",
+          "try.comingSoon": "Bald verfügbar für",
+          "mood.good": "Gut",
+          "mood.bad": "Schlecht",
+          "mood.best": "Bester Tag",
+          "mood.okay": "Okay",
+          "mood.cool": "Cool",
+          "final.line": "Mach aus jedem Tag eine Erinnerung."
+        }
+      };
+
+      var currentLang = "en";
+
+      function applyLanguage(lang) {
+        if (!I18N[lang]) lang = "en";
+        currentLang = lang;
+        var dict = I18N[lang];
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (dict[key] !== undefined) el.innerHTML = dict[key];
+        });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n-placeholder");
+          if (dict[key] !== undefined) el.setAttribute("placeholder", dict[key]);
+        });
+        if (typeof updateTryGreeting === "function") updateTryGreeting();
+        document.querySelectorAll(".nav-lang-btn").forEach(function (btn) {
+          var isActive = btn.getAttribute("data-lang") === lang;
+          btn.classList.toggle("is-active", isActive);
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+        document.documentElement.setAttribute("lang", lang);
+        if (typeof yearStage !== "undefined" && yearStage) {
+          yearCaption.textContent = dict["year.caption." + yearStage.getAttribute("data-stage")];
+        }
+        try { localStorage.setItem("hp_story_lang", lang); } catch (e) { /* ignore */ }
+      }
+
+      /* -------- 1. opening: genesis pixels + wordmark -------- */
+      var genesis = document.getElementById("genesis");
+      var positions = [
+        { x: 46, y: 30 }, { x: 20, y: 58 }, { x: 72, y: 52 },
+        { x: 50, y: 78 }, { x: 30, y: 14 }, { x: 80, y: 20 }, { x: 62, y: 70 }
+      ];
+      positions.forEach(function (p, i) {
+        var el = document.createElement("div");
+        el.className = "genesis-pixel";
+        el.style.left = p.x + "%";
+        el.style.top = p.y + "%";
+        el.style.background = colorFor(i);
+        el.style.animationDelay = reduced ? "0ms" : (i * 260 + 200) + "ms";
+        genesis.appendChild(el);
+      });
+
+      var openingWord = document.getElementById("openingWord");
+      var scrollHint = document.getElementById("scrollHint");
+      var wordDelay = reduced ? 0 : positions.length * 260 + 500;
+      setTimeout(function () {
+        openingWord.classList.add("is-visible");
+      }, wordDelay);
+      setTimeout(function () {
+        scrollHint.classList.add("is-visible");
+      }, wordDelay + 400);
+
+      /* -------- nav bar appears once user leaves the opening -------- */
+      var navBar = document.getElementById("navBar");
+      var openingEl = document.getElementById("opening");
+      var backObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          navBar.classList.toggle("is-visible", !entry.isIntersecting);
+        });
+      }, { threshold: 0.6 });
+      backObserver.observe(openingEl);
+
+      /* -------- generic scroll-reveal -------- */
+      var revealEls = document.querySelectorAll(".reveal");
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+      /* -------- pixel → phone morph: the hero phone grows out of a pixel -------- */
+      var heroPhoneEl = document.getElementById("heroPhone");
+      if (heroPhoneEl) {
+        var heroPhoneObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              heroPhoneEl.classList.add("is-active");
+              heroPhoneObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3 });
+        heroPhoneObserver.observe(heroPhoneEl);
+      }
+
+      /* stagger siblings inside common groups */
+      function stagger(selector, step) {
+        document.querySelectorAll(selector).forEach(function (group) {
+          Array.prototype.forEach.call(group.children, function (child, i) {
+            child.style.transitionDelay = reduced ? "0ms" : (i * step) + "ms";
+          });
+        });
+      }
+      stagger(".memory-grid", 60);
+      stagger(".badge-row", 60);
+      stagger(".mini-phone-row", 80);
+      stagger(".category-row", 30);
+      stagger(".beat-lines", 100);
+      stagger(".matters-lines", 120);
+      stagger(".people-list", 90);
+
+      /* -------- "Try it yourself" — fully in-memory, nothing persisted -------- */
+      (function () {
+        var card = document.getElementById("tryCard");
+        if (!card) return;
+
+        var nameInput = document.getElementById("tryName");
+        var nameNext = document.getElementById("tryNameNext");
+        var greeting = document.getElementById("tryGreeting");
+        var momentInput = document.getElementById("tryMoment");
+        var saveBtn = document.getElementById("trySave");
+        var restartBtn = document.getElementById("tryRestart");
+        var pixelField = document.getElementById("tryPixelField");
+        var line1 = document.getElementById("tryLine1");
+        var line2 = document.getElementById("tryLine2");
+        var moodButtons = Array.prototype.slice.call(card.querySelectorAll(".mood-pick"));
+
+        var steps = {};
+        card.querySelectorAll(".try-step").forEach(function (el) {
+          steps[el.getAttribute("data-for")] = el;
+        });
+
+        /* session-only state — never written to storage, cleared on restart */
+        var state = { name: "", moodColorVar: "--p1" };
+
+        function goTo(stepName) {
+          Object.keys(steps).forEach(function (key) {
+            steps[key].hidden = key !== stepName;
+          });
+        }
+
+        window.updateTryGreeting = function () {
+          if (state.name) {
+            greeting.textContent = I18N[currentLang]["try.hi"] + ", " + state.name + ".";
+          }
+        };
+
+        nameInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") nameNext.click();
+        });
+
+        nameNext.addEventListener("click", function () {
+          state.name = (nameInput.value || "").trim().slice(0, 24);
+          if (!state.name) state.name = "friend";
+          updateTryGreeting();
+          goTo("mood");
+        });
+
+        moodButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            moodButtons.forEach(function (b) { b.classList.remove("is-selected"); b.style.boxShadow = ""; });
+            btn.classList.add("is-selected");
+            state.moodColorVar = btn.getAttribute("data-mood-var");
+            var colorValue = getComputedStyle(document.documentElement).getPropertyValue(state.moodColorVar).trim();
+            btn.style.boxShadow = "0 0 0 3px " + colorValue + ", 0 14px 32px rgba(0,0,0,0.14)";
+            setTimeout(function () { goTo("moment"); momentInput.focus(); }, 260);
+          });
+        });
+
+        momentInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") saveBtn.click();
+        });
+
+        function buildPixelField() {
+          pixelField.innerHTML = "";
+          var total = 120;
+          var cells = [];
+          for (var i = 0; i < total; i++) {
+            var cell = document.createElement("div");
+            cell.className = "cell";
+            cell.style.background = i === 0 ? getComputedStyle(document.documentElement).getPropertyValue(state.moodColorVar).trim() : scrambledColor(i);
+            pixelField.appendChild(cell);
+            cells.push(cell);
+          }
+          return cells;
+        }
+
+        function revealLine(el, delay) {
+          setTimeout(function () { el.classList.add("is-visible"); }, delay);
+        }
+
+        function playBuildUp() {
+          var cells = buildPixelField();
+          line1.classList.remove("is-visible");
+          line2.classList.remove("is-visible");
+
+          if (reduced) {
+            cells.forEach(function (c) { c.classList.add("is-in"); });
+            revealLine(line1, 50);
+            revealLine(line2, 250);
+            return;
+          }
+
+          var i = 0;
+          function revealNext() {
+            if (i >= cells.length) {
+              revealLine(line1, 150);
+              revealLine(line2, 550);
+              return;
+            }
+            cells[i].classList.add("is-in");
+            i++;
+            /* accelerate: starts slow (one pixel = one day), speeds up
+               into a rapid fill (a whole year coming together) */
+            var progress = i / cells.length;
+            var delay = 85 - progress * 78;
+            setTimeout(revealNext, Math.max(6, delay));
+          }
+          revealNext();
+        }
+
+        saveBtn.addEventListener("click", function () {
+          goTo("reveal");
+          playBuildUp();
+        });
+
+        restartBtn.addEventListener("click", function () {
+          state.name = "";
+          state.moodColorVar = "--p1";
+          nameInput.value = "";
+          momentInput.value = "";
+          moodButtons.forEach(function (b) { b.classList.remove("is-selected"); b.style.boxShadow = ""; });
+          pixelField.innerHTML = "";
+          line1.classList.remove("is-visible");
+          line2.classList.remove("is-visible");
+          goTo("name");
+          nameInput.focus();
+        });
+      })();
+
+      /* -------- 5. year-in-pixels pinned scrollytelling -------- */
+      var yearGrid = document.getElementById("yearGrid");
+      var yearVisual = document.querySelector(".year-visual");
+      var yearStage = document.getElementById("yearStage");
+      var yearCaption = document.getElementById("yearCaption");
+      var TOTAL_CELLS = 120; // 12 x 10, enough to read as "a year"
+
+      for (var i = 0; i < TOTAL_CELLS; i++) {
+        var yc = document.createElement("div");
+        yc.className = "year-cell";
+        yc.style.background = scrambledColor(i);
+        if (i < 7) yc.classList.add("week-cell");
+        if (i < 30) yc.classList.add("month-cell");
+        yearGrid.appendChild(yc);
+      }
+
+      function setYearStage(stage) {
+        yearStage.setAttribute("data-stage", String(stage));
+        yearCaption.textContent = I18N[currentLang]["year.caption." + stage];
+      }
+
+      var yearSection = document.getElementById("year-in-pixels");
+
+      function updateYearProgress() {
+        var rect = yearSection.getBoundingClientRect();
+        var total = rect.height - window.innerHeight;
+        if (total <= 0) return;
+        var scrolled = -rect.top;
+        var progress = Math.min(1, Math.max(0, scrolled / total));
+        var stage = Math.min(3, Math.floor(progress * 4));
+        setYearStage(stage);
+
+        /* continuous camera feel: a small push-in at the start of each
+           stage that settles as you scroll through it, plus a slow
+           overall pull-back across the whole section */
+        if (!reduced) {
+          var withinStage = (progress * 4) % 1;
+          var settle = 1 + (1 - withinStage) * 0.1;
+          var pullBack = 1.06 - progress * 0.06;
+          yearVisual.style.transform = "scale(" + (settle * pullBack).toFixed(4) + ")";
+        }
+      }
+
+      /* -------- 2. dark -> light background transition -------- */
+      var bgOverlay = document.getElementById("bgOverlay");
+      var questionSection = document.getElementById("question");
+
+      function updateBgTransition() {
+        var rect = questionSection.getBoundingClientRect();
+        var total = rect.height - window.innerHeight * 0.4;
+        if (total <= 0) { bgOverlay.style.opacity = 1; return; }
+        var scrolled = -rect.top;
+        var progress = Math.min(1, Math.max(0, scrolled / total));
+        bgOverlay.style.opacity = String(progress);
+      }
+
+      /* -------- 11. whole picture mosaic + climax lines -------- */
+      var mosaic = document.getElementById("mosaic");
+      var MOSAIC_CELLS = 22 * 12;
+      for (var m = 0; m < MOSAIC_CELLS; m++) {
+        var mc = document.createElement("div");
+        mc.className = "cell";
+        mc.style.background = scrambledColor(m);
+        mc.style.setProperty("--d", reduced ? "0ms" : ((m % 40) * 14) + "ms");
+        mosaic.appendChild(mc);
+      }
+
+      var mosaicObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) mosaic.classList.add("is-visible");
+        });
+      }, { threshold: 0.15 });
+      mosaicObserver.observe(mosaic);
+
+      var wpLine1 = document.getElementById("wpLine1");
+      var wpLine2 = document.getElementById("wpLine2");
+      var wholeSection = document.getElementById("whole-picture");
+
+      function updateWholePicture() {
+        var rect = wholeSection.getBoundingClientRect();
+        var total = rect.height - window.innerHeight;
+        if (total <= 0) return;
+        var scrolled = -rect.top;
+        var progress = Math.min(1, Math.max(0, scrolled / total));
+        wpLine1.classList.toggle("is-visible", progress > 0.12);
+        wpLine2.classList.toggle("is-visible", progress > 0.55);
+      }
+
+      /* -------- shared rAF-throttled scroll loop -------- */
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          var overall = docHeight > 0 ? scrollTop / docHeight : 0;
+          document.getElementById("progressFill").style.transform = "scaleX(" + overall + ")";
+
+          updateBgTransition();
+          updateYearProgress();
+          updateWholePicture();
+
+          document.querySelectorAll(".mini-bar").forEach(function (bar) {
+            var r = bar.getBoundingClientRect();
+            if (r.top < window.innerHeight * 0.85) bar.classList.add("is-visible");
+          });
+
+          ticking = false;
+        });
+      }
+
+      if (reduced) {
+        setYearStage(3);
+        bgOverlay.style.opacity = 1;
+        mosaic.classList.add("is-visible");
+        wpLine1.classList.add("is-visible");
+        wpLine2.classList.add("is-visible");
+        document.querySelectorAll(".mini-bar").forEach(function (b) { b.classList.add("is-visible"); });
+      } else {
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+      }
+
+      /* -------- language switcher: EN default, remembers the choice -------- */
+      var savedLang = "en";
+      try {
+        var stored = localStorage.getItem("hp_story_lang");
+        if (stored === "en" || stored === "de") savedLang = stored;
+      } catch (e) { /* ignore */ }
+
+      document.querySelectorAll(".nav-lang-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyLanguage(btn.getAttribute("data-lang"));
+        });
+      });
+
+      applyLanguage(savedLang);
+    })();
+  </script>
+</body>
+</html>
